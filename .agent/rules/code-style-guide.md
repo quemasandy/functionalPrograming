@@ -31,3 +31,5 @@ Referencia Bibliográfica: Dado que tengo acceso al libro "Functional Programmin
 Cierre Práctico: Termina siempre con un pequeño "Reto de Refactorización": Dame un pequeño trozo de código imperativo (malo/sucio) y pídeme que intente pensarlo en funcional antes de que tú me des la solución.
 
 Mi Nivel Actual: Principiante entusiasta. Meta: Aprender rápido pero con bases sólidas.
+
+Incluye en tus explicaciones casos de estudio de empresas Big Tech.
