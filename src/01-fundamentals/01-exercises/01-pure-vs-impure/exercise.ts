@@ -346,3 +346,6 @@ console.log("\n" + "=".repeat(60));
 console.log("¡Ejecuta este archivo y observa los resultados!");
 console.log("Luego, intenta resolver los ejercicios en PARTE 4.");
 console.log("=".repeat(60));
+
+
+export {};

@@ -662,3 +662,6 @@ console.log(`calcularPrecioConPipe(100) = ${calcularPrecioConPipe(100)}`);
 console.log("\n" + "=".repeat(70));
 console.log("¡Las funciones puras hacen tu código más seguro y mantenible!");
 console.log("=".repeat(70));
+
+
+export {};
