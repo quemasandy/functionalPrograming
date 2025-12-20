@@ -279,6 +279,15 @@ function demostrarSolucionArray() {
  * - Guardar en base de datos
  * - Enviar emails
  * 
+ * ¿POR QUÉ ESTAS ACCIONES SON IMPURAS?
+ * ------------------------------------
+ * Son "efectos secundarios" porque:
+ * 1. MODIFICAN algo fuera de la función (archivo, DB, red)
+ * 2. El resultado depende del MUNDO EXTERNO (¿el servidor está arriba?)
+ * 3. Llamarlas dos veces puede dar resultados diferentes
+ * 4. No puedes "deshacer" un email enviado
+ * 
+ * Una función PURA solo depende de sus inputs y no cambia nada afuera.
  * La clave es SABER que son impuras y manejarlas conscientemente.
  */
 
@@ -323,6 +332,21 @@ async function fetchConfig() { return { descuento: 0.1, impuesto: 0.16 }; }
 async function guardarOrden(id: string, precio: number) { }
 async function enviarConfirmacion(email: string, precio: number) { }
 
+/**
+ * ¿QUÉ ES UN STUB?
+ * -----------------
+ * Un "stub" es una IMPLEMENTACIÓN FALSA/SIMPLIFICADA de una función.
+ * Se usa para:
+ * 1. Poder ejecutar el código sin tener la DB real
+ * 2. Hacer tests sin depender de servicios externos
+ * 3. Mostrar la FIRMA de la función sin implementar la lógica real
+ * 
+ * Ejemplo: fetchProducto() arriba solo retorna datos de prueba,
+ * no se conecta a ninguna base de datos real.
+ * 
+ * En producción, reemplazarías el stub por la implementación real.
+ */
+
 
 // =============================================================================
 // PREGUNTA 6: ¿Por qué la paralelización requiere funciones puras?
@@ -338,7 +362,26 @@ async function enviarConfirmacion(email: string, precio: number) { }
 let contadorGlobal = 0;
 
 function incrementarContador(): void {
-    // Esta operación NO es atómica
+    /**
+     * ¿QUÉ SIGNIFICA "NO ES ATÓMICA"?
+     * --------------------------------
+     * Una operación ATÓMICA es INDIVISIBLE: ocurre completamente o no ocurre.
+     * Como un átomo que no se puede dividir (en el sentido original).
+     * 
+     * `contadorGlobal = contadorGlobal + 1` PARECE una sola operación,
+     * pero internamente son TRES pasos:
+     * 
+     *   1. LEER:    Obtener el valor actual de contadorGlobal → 0
+     *   2. CALCULAR: Sumar 1 → resultado = 1
+     *   3. ESCRIBIR: Guardar el resultado en contadorGlobal → 1
+     * 
+     * El problema: entre el paso 1 y el paso 3, OTRO proceso puede
+     * ejecutar SUS pasos 1, 2, 3, causando que uno de los cambios
+     * se pierda (race condition).
+     * 
+     * SOLUCIÓN: Usar operaciones VERDADERAMENTE atómicas que hacen
+     * leer-modificar-escribir en UN SOLO paso indivisible.
+     */
     // Se descompone en: 1) leer valor, 2) sumar 1, 3) escribir valor
     contadorGlobal = contadorGlobal + 1;
 }
