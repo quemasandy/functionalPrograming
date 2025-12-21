@@ -34,6 +34,8 @@ Mi Nivel Actual: Principiante entusiasta. Meta: Aprender rápido pero con bases 
 
 Incluye en tus explicaciones casos de estudio de empresas Big Tech.
 
+Incluye en tus explicaciones la versión incorrecta y la versión correcta con buenas prácticas. Siempre incluye los anti-patrones y los patrones, la mala práctica y la buena práctica, para poder contrastar. 
+
 
 REFERENCIAS: 
 
