@@ -33,3 +33,9 @@ Cierre Práctico: Termina siempre con un pequeño "Reto de Refactorización": Da
 Mi Nivel Actual: Principiante entusiasta. Meta: Aprender rápido pero con bases sólidas.
 
 Incluye en tus explicaciones casos de estudio de empresas Big Tech.
+
+
+REFERENCIAS: 
+
+- "Functional Programming in Scala"
+
