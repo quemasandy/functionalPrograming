@@ -36,6 +36,7 @@ Incluye en tus explicaciones casos de estudio de empresas Big Tech.
 
 Incluye en tus explicaciones la versión incorrecta y la versión correcta con buenas prácticas. Siempre incluye los anti-patrones y los patrones, la mala práctica y la buena práctica, para poder contrastar. 
 
+Las lecciones tienen que seguir un orden lógico, siempre construyendo desde los conceptos más simples y desde los principios fundamentales a lo más complejo. 
 
 REFERENCIAS: 
 
