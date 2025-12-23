@@ -24,8 +24,15 @@ npm-debug.log*
 
 # Package lock (opcional, descomenta si no lo quieres)
 # package-lock.json
-.metals/metals.lock.db
-.metals/metals.mv.db
-.vscode/settings.json
-.scala-build/.bloop/functionalPrograming_d5c0a6989e-test.json
-.scala-build/.bloop/functionalPrograming_d5c0a6989e.json
+# Scala / scala-cli / sbt
+.scala-build/
+.bsp/
+.metals/
+target/
+project/target/
+project/project/
+*.class
+*.tasty
+
+# VS Code
+.vscode/

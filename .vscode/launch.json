@@ -2,6 +2,37 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "🐛 Run Scala",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceFolder}/scala-cli-wrapper",
+      "args": [
+        "run",
+        "${file}"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    {
+      "name": "🔥🔥 Run Scala Watch Mode",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceFolder}/scala-cli-wrapper",
+      "args": [
+        "run",
+        "--watch",
+        "${file}"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    {
       "name": "🐛 Debug Current TS File",
       "type": "node",
       "request": "launch",

@@ -2,10 +2,6 @@
 trigger: always_on
 ---
 
----
-trigger: always_on
----
-
 # 🎯 Agent Rules: Functional Programming Learning Project
 
 > **Propósito**: Reglas para generar ejercicios de programación funcional de alta calidad, orientados a sistemas financieros y críticos.
@@ -60,7 +56,7 @@ src/
 ```
 Carpetas:  XX-nombre-en-kebab-case/    (ej: 01-pure-vs-impure/)
 Archivos:  nombre-descriptivo.ts            (ej: pure-functions.ts)
-           nombre-descriptivo.worksheet.sc  (ej: pure-functions.worksheet.sc)
+           nombre-descriptivo.scala         (ej: pure-functions.scala)
 ```
 
 
@@ -158,7 +154,7 @@ throw                             // Usar Either/Try
 ```
 
 **Versión**: Scala 3.x (última estable)  
-**Formato**: Scala Worksheets (`.worksheet.sc`) para evaluación interactiva con Metals
+**Formato**: Archivos Scala estándar (`.scala`) con método `@main`
 
 ---
 
@@ -317,9 +313,9 @@ src/01-fundamentals/01-exercises/XX-nombre-concepto/
 src/01-fundamentals/01-exercises/XX-nombre-complejo/
 ├── README.md                    # Explicación del tema
 ├── 01-problema.ts               # Paso 1
-├── 01-problema.worksheet.sc     # Scala Worksheet
+├── 01-problema.scala            # Paso 1 (Scala)
 ├── 02-solucion.ts               # Paso 2
-├── 02-solucion.worksheet.sc     # Scala Worksheet
+├── 02-solucion.scala            # Paso 2 (Scala)
 └── ...
 ```
 

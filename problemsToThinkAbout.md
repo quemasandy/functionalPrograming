@@ -67,3 +67,21 @@ Para tu trabajo actual, mi recomendación directa es:
 3. Estudia la **API de Stripe** (su documentación es considerada el estándar de oro de cómo se deben diseñar sistemas de pago).
 
 ¿Tu sistema actual utiliza algún tipo de **Key/Clave única** para cada intento de pago o simplemente envían la petición y esperan lo mejor?
+---
+
+## 🤖 El Cambio de Rol del Ingeniero de Software
+
+| Aspecto | Antes (Manual) | Ahora (Asistido por IA/Agentes) |
+|---------|----------------|----------------------------------|
+| **Habilidad clave** | Sintaxis y memoria de librerías | Arquitectura, diseño de sistemas y prompt engineering |
+| **Flujo de trabajo** | Escribir → Probar → Corregir | Especificar → Orquestar Agentes → Auditar → Integrar |
+| **Cuello de botella** | Velocidad de escritura y cansancio mental | Capacidad de verificar que el código generado es correcto y seguro |
+
+### ¿Qué hace un ingeniero moderno?
+
+1. **Especifica** - Define claramente QUÉ se necesita construir
+2. **Orquesta agentes** - Corre múltiples agentes de código en paralelo
+3. **Audita** - Revisa y valida el código generado (con herramientas como Puppeteer para UI)
+4. **Integra** - Combina las piezas en un sistema coherente
+
+> *"En 6 meses la respuesta podría ser: es solo 1 ingeniero"* - La velocidad del cambio es exponencial
