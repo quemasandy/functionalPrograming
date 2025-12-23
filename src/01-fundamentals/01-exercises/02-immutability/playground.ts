@@ -29,20 +29,31 @@ function isCons<A>(list: ImmutableList<A>): list is Cons<A> {
   return list._tag === 'Cons';
 }
 
-function length(lista: ImmutableList<number>): number {
-  if (isNil(lista)) {
-    return 0; // Caso base
-  } else {
-    return 1 + length(lista.tail); // Recursión
+// function length(lista: ImmutableList<number>, acc: number = 0): number {
+//   if (lista._tag === 'Nil') {
+//     return acc;
+//   } else {
+//     return length(lista.tail, acc + 1);
+//   }
+// }
+function length<A>(lista: ImmutableList<A>): number {
+  let current = lista;
+  let count = 0;
+  while (isCons(current)) {
+    count += 1;
+    current = current.tail;
   }
+  return count;
 }
 
 function sum(lista: ImmutableList<number>): number {
-  if (isNil(lista)) {
-    return 0; // Caso base
-  } else {
-    return lista.head + sum(lista.tail); // Recursión
+  let current = lista;
+  let acc = 0;
+  while (isCons(current)) {
+    acc += current.head;
+    current = current.tail;
   }
+  return acc;
 }
 
 // Construir listas enlazadas de esta forma son objetos que están enlazados de forma gigante. 
@@ -58,12 +69,20 @@ function List(start: number, end: number): ImmutableList<number> {
   }
 }
 
+// function ListLifo(start: number, end: number): ImmutableList<number> {
+//   if (start > end) {
+//     return nil;
+//   } else {
+//     return cons(end, ListLifo(start, end - 1));
+//   }
+// }
+
 function ListLifo(start: number, end: number): ImmutableList<number> {
-  if (start > end) {
-    return nil;
-  } else {
-    return cons(end, ListLifo(start, end - 1));
+  let tail: ImmutableList<number> = nil;
+  for (let i = start; i <= end; i++) {
+    tail = cons(i, tail);
   }
+  return tail;
 }
 
 function toArray<A>(lista: ImmutableList<A>): A[] {
@@ -77,14 +96,14 @@ function toArray<A>(lista: ImmutableList<A>): A[] {
 }
 
 // const lista = List(1, 10);
-const lista = ListLifo(1, 10);
+const lista = ListLifo(1, 1000000);
 // lista._tag = 'Nil';
 // lista.head = 2;
 // lista.tail = 2;
 console.log('[lista]', lista);
 console.log('[lista] JS', toArray(lista));
 console.log(length(lista));
-console.log(sum(lista)); 
+console.log(sum(lista));
 
 // Complejidad: O(1) tiempo constante ¿Qué quieres decir con "complejidad" o "uno tiempo constante"? O sea, ¿qué quieres decir con esto? (o, entre paréntesis, uno: tiempo constante). 
 
@@ -131,4 +150,4 @@ function tablaComplejidad(): void {
 // O(n)** ¿Qué quieres decir con esto? O(n)**
 // porque los * y **
 
-export {};
+export { };

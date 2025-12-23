@@ -1,0 +1,1423 @@
+01:24 AM
+aquí, igual, tengo un error: Maximum call stack size exceeded
+01:18 AM
+en esta función tengo un maximum call stack size exceeded
+01:18 AM
+En esta función tengo un maximum call stack size exceeded.
+01:06 AM
+Todavía tiene que hacer una operación matemática con su lista T.
+12:57 AM
+Es decir, que las funciones recursivas siempre tienen ese problema de que pueden causar demasiadas llamadas a los tags.
+12:52 AM
+Ayúdame a entender mejor cada fila de la tabla
+12:45 AM
+Muéstrame cómo podría crear listas enlazadas sin obtener el error de maximum call stack size exceeded.
+12:42 AM
+Explícame de forma más profunda por qué haces LIS y isNIL.
+12:39 AM
+¿Por qué es mejor retornar List.isNil que decir que retorna boolean?
+12:37 AM
+Explícame de forma más general qué significa hacer algo read-only.
+12:32 AM
+Sí, pero hay lugares donde sí puedo leer.
+12:31 AM
+¿Por qué los expertos dicen que lo más importante son las interfaces de los tipos?
+12:28 AM
+si quiero empezar a utilizar programación funcional en mi código, voy a necesitar crear todas estas estructuras.
+
+Hoy existen librerías
+12:26 AM
+¿Cuándo debería usar listas normales? ¿Y cuándo debería usar listas enlazadas? ¿En qué escenario brilla cada uno?
+12:25 AM
+¿Qué es una estructura en verdad? Cuando un programador habla de estructuras, ¿a qué se refiere
+12:24 AM
+también, si ves en el código, puse comentarios en todo el lugar donde tengo preguntas. Contéstalos
+12:24 AM
+hice algunas implementaciones propias. Analízalo
+12:21 AM
+¿Qué quieres decir con esto?
+12:21 AM
+Ayúdame a entender esta tabla.
+12:04 AM
+Si quiero usar programación funcional en mis programas, ¿tengo que empezar a escribir todos estos métodos o existen librerías que puedo utilizar?
+Yesterday
+11:57 PM
+¿Qué quieres decir con
+11:53 PM
+En una lista muy grande, por ejemplo de unos mil elementos, hacer una copia de todos no sería muy costoso.
+
+¿Cómo manejas cuando son listas muy grandes y quieres quitar el último elemento? ¿Cómo se maneja eso?
+11:49 PM
+O sea, ¿qué quieres decir con esto? (o, entre paréntesis, uno: tiempo constante).
+11:48 PM
+¿Qué quieres decir con "complejidad" o "uno tiempo constante"?
+11:37 PM
+Si hago esto en JavaScript,
+11:37 PM
+Estar listos de esta forma es más eficiente que hacer
+11:25 PM
+¿Cuándo debería empezarme a preocupar por la memoria?
+11:25 PM
+Debería preocuparme por la memoria.
+11:25 PM
+Construir listas enlazadas de esta forma son objetos que están enlazados de forma gigante. No consumen demasiada memoria, o sea, tienen un límite, y en algún momento me voy a quedar sin memoria.
+11:21 PM
+¿Hay una ganancia de performance o qué?
+11:21 PM
+Ayúdame a entender si "tail" es una referencia al resto. ¿Qué ganancias tengo?
+11:19 PM
+¿Cuál es el comportamiento o qué efecto tiene en el código decir que esta propiedad es read-only?
+11:19 PM
+¿Qué es una interface?
+09:42 PM
+Tal vez sería más lento porque cada vez que quito un elemento del array con pop, tengo que reconstruir todo el array.
+09:42 PM
+ustedes son los push y pull.
+09:41 PM
+Lo cual es una operación super rápido. Ahora, si estuviera trabajando en cambio con una estructura de ratos como FIFO,
+09:40 PM
+Esto es ideal para un deshacer porque, cada vez que ejecuta la acción "deshacer", lo único que tengo que hacer es tomar el tail.
+09:40 PM
+Es que estoy usando una estructura LIFO (Last In First Out), son como una bandeja de platos.
+09:40 PM
+Aparecerían en orden: Cambio 2 y Cambio 1. Porque cada vez que estoy agregando un elemento, estoy usando Pre-Pen, que usa el patrón para crear nuevos elementos como Head y agregar el resto a la Tail.
+09:06 PM
+¿Cuáles son las lecciones que debería aprender de este código
+09:06 PM
+¿Esto es código que se podría poner en producción, o es más un ejemplo didáctico?
+09:06 PM
+pero, ¿este código qué me está queriendo enseñar
+08:28 PM
+Hello!
+04:27 PM
+Ayúdame a entender cada pequeña parte de este tipo.
+04:27 PM
+Ayúdame a entender este tipo de tipo y mutable list. ¿Qué significa la A y qué significa decir igual nil o const A?
+04:26 PM
+cuando pidas respuestas a ejercicios, pide el código en TypeScript o Scala
+04:26 PM
+cuando escribas código, muestra el código en TypeScript y en Scala
+03:39 PM
+La verdad, no entendí nada. Ayúdame a entender este concepto, yendo desde lo más simple a lo más complejo.
+03:39 PM
+Optimización que compila la recursión en bucles, que no consume memoria de pila en cada iteración.
+03:39 PM
+¿Igual, dame un tutorial para entender este concepto de eliminación de llamada de call?
+03:36 PM
+Ayúdame a entender cómo una función puede operar sobre valores de diferentes tipos.
+03:36 PM
+Ahora necesito un tutorial que vaya desde lo más simple hasta lo más complejo para entender sobre función polimórfica.
+03:19 PM
+Dame ejercicios desde lo más simple hasta lo más complejo para dominar el concepto de High Order Functions o funciones de orden superior.
+03:19 PM
+¿O cómo se vería en la práctica una función que devuelve una función como resultado?
+03:19 PM
+¿Cómo se vería eso en la práctica de una función que acepta otras funciones?
+03:18 PM
+Ayúdame a tener un tutorial para entender este concepto de función de orden superior (HOF).
+02:58 PM
+me puedes dar un prompt para investigar más sobre este tema acerca del cambio de rol del ingeniero de software?
+02:54 PM
+¿Puedes hacer que se vea como esta tabla?
+02:43 PM
+Pero, ¿qué más hace? O sea, entra en más detalle en cómo es el desarrollo de software moderno.
+02:43 PM
+Usa herramientas automatizadas de software para revisarlo.
+02:43 PM
+¿Corren varios agentes en paralelo para escribir el código?
+02:42 PM
+Antes era un ingeniero programando de forma manual. Hoy en día, ¿qué hace un ingeniero?
+02:42 PM
+Profundiza más en esto, o sea, ¿cómo actualmente los ingenieros de software pueden utilizar herramientas de inteligencia artificial para mejorar la productividad?
+02:42 PM
+Y luego la revisión del código también sería con Popper de forma automática.
+02:42 PM
+Se dice que estos cinco ingenieros podrían estar escribiendo el código en paralelo con agentes.
+02:42 PM
+Ahora se podría hacer el mismo trabajo con cinco ingenieros.
+02:42 PM
+Aquí se habla de que antes hubiera tomado quince ingenierías.
+02:34 PM
+Pero aquí tengo una pregunta: ¿en JavaScript o en TypeScript usaríamos Map y FlatMap solo para Arrays? Pero en cambio veo que en Scala puedo usar incluso para solo un objeto de datos, o sea, solo para un usuario, sin necesidad de que esté dentro de un Array. ¿Estoy correcto?
+02:34 PM
+Dos. Se detiene ahí y todo el resultado se convierte en "no".
+02:31 PM
+Tienes que usar el flatMap porque youGetAddress te va a devolver ya un Option, y ese Option va a estar dentro de otro Option. Entonces, el flatMap te ayuda a combinar los dos options, a procesar primero lo interior y luego el exterior, para quedarte con un solo Option.
+
+Si usas map simple, te vas a quedar con un option dentro de otro option, un option anidado.
+01:59 PM
+Dame ejemplos didácticos de código que me ayuden a entender esto.
+01:58 PM
+Si no la descripción de un sistema elegante y sus reglas.
+01:57 PM
+Ayúdame a entender esta frase: "¿Qué tal si el código más potente que podemos escribir no es código?"
+01:54 PM
+Sí, enséñame a volverme un maestro en FlatMap.
+01:54 PM
+¿Cómo usaría flatMap cuando estoy haciendo un programa para la terminal?
+01:54 PM
+¿Cómo usaría flatMap cuando estoy haciendo un sistema de billing?
+01:54 PM
+O sea, quiero entender cómo usar flatMap cuando estoy haciendo aplicaciones web.
+01:54 PM
+Dame todo un tutorial de cómo usar flatMap en distintos contextos.
+01:48 PM
+Te hago un tutorial paso a paso que me enseño.
+01:48 PM
+¿Cómo puedo aprender a programar de esta forma?
+01:48 PM
+Antes de decidir la implementación o representación.
+01:48 PM
+Diseñar la interfaz y sus leyes primero.
+01:47 PM
+¿Cómo puedo aprender primero a diseñar un álgebra? O sea, el diseño algebraico antes de programar.
+01:47 PM
+Ayúdame a diseñar un tutorial que me ayude a internalizar estos principios.
+01:46 PM
+¿Qué quieren decir los programadores con "sintaxis"?
+01:46 PM
+¿Qué es un analizador sintáctico?
+01:45 PM
+¿Qué quieren decir con que, para programar funcionalmente, primero hay que diseñar un álgebra? Diseñando un álgebra primero.
+01:41 PM
+Dame un tutorial que me ayude a internalizar este tipo de pensamiento.
+01:41 PM
+Es algo así como pensar al revés, o sea, primero el resultado, y del resultado voy hacia atrás a la construcción de la función, y de ahí a los argumentos que necesito.
+01:40 PM
+O sea, es decir, que primero tengo que pensar el retorno de la función y de acuerdo a eso voy a construir toda la función.
+01:40 PM
+¿Cómo puedo aprender a programar en este estilo?
+01:40 PM
+¿Cómo puedo poder?
+01:40 PM
+Aquí dice: "seguir los tipos", un enfoque donde el tipo de retorno guía la construcción de la función, haciendo que se sienta mecánica.
+01:25 PM
+Ayúdame a crear un tutorial que me ayude a aprender cómo programar esto.
+01:14 PM
+Dame un tutorial que me ayude a entender lo que me quiere decir este gráfico.
+01:12 PM
+No, se mantuvo el tipo de dato y se mantuvo la estructura en la raíz con la misma cantidad de objetos.
+01:11 PM
+O sea, el array original se mantuvo. Si cambió de 10 a 20, pero en una nueva caja, en un nuevo
+12:51 PM
+Aquí sí pensaría que es una abstracción ad hoc, o sea, una abstracción específica para un tipo de dato.
+
+Una abstracción para esto: cuando yo le envíe un dato, tiene un comportamiento diferente cuando le envío una fecha, cuando le envío un número, o sea, hace cosas diferentes de acuerdo al tipo de dato. Cambia el comportamiento.
+
+Entonces, es una abstracción ad hoc.
+12:50 PM
+Diría que es una abstracción genérica, porque el polimorfismo ad-hoc es cuando varía el comportamiento de acuerdo al tipo de dato, pero aquí, en esta abstracción genérica, el comportamiento simplemente va a ser imprimir lo que le envía, sin importar qué tipo de dato es.
+11:05 AM
+Vamos a estudiar de acuerdo.
+11:04 AM
+Vamos a cortar.
+10:59 AM
+Cuando un desarrollador de software utiliza estos términos, ¿a qué se refiere?
+10:59 AM
+¿Me ayudas a entender qué quiere decir con "abstraction", "ad hoc", "monad", "functor" en el contexto?
+10:20 AM
+Y luego sigue escalando hasta mostrarme parsers que son súper complejos.
+10:19 AM
+Empiezame mostrando el parcel más simple y didáctico posible.
+10:19 AM
+Déjame entender que es un parser.
+10:16 AM
+Ayúdame a programar esto.
+10:05 AM
+Esta parte no me queda muy clara. Sí, dame todo un curso acerca de transparencia referencial.
+10:05 AM
+¿Podría reemplazar toda esa función, o sea, introducirle como argumento en otra función? Y el resultado que me da también podría pasárselo como argumento a otra función sin cambiar el programa.
+10:05 AM
+¿Qué quieres decir? Que una función con sus argumentos.
+10:04 AM
+Una expresión puede ser reemplazada por su resultado sin cambiar el significado del programa.
+10:04 AM
+Ayúdame a escribir un programa que me ayude a entender qué es la transparencia referencial.
+10:00 AM
+Aiden va a visualizar todo este proceso en código.
+10:00 AM
+Y gano que, si quiero cobrar 12 tazos de café, puedo llamar a la función de café que me va a retornar 12 acciones para cobrar un café. Luego, con esas 12 acciones, yo puedo utilizarlas en un proceso para realizar el cobro en una sola transacción.
+09:59 AM
+Si no, que retorno una decisión o una acción de cobrar esa taza de café.
+09:59 AM
+Como con un enfoque más funcional: cuando introduzco una tarjeta de crédito en BuyCoffee, no retorno solo la tasa de
+09:59 AM
+Entonces, si quisiera cobrar 12 cafés, tengo que repetir el efecto secundario 12 veces.
+09:59 AM
+Y también que la función es como que queda acoplada a esta otra acción. Son dos acciones.
+09:58 AM
+Eso tiene el problema de que testear esa función se vuelve difícil porque necesito simular la API externa, el gateway de pago.
+09:58 AM
+Si tengo una función BuyCoffee que recibe una credit card y una coffee, voy a utilizar un efecto secundario para hacer la transacción dentro de la función BuyCoffee.
+09:58 AM
+Enséñame a programar esto que se ve en la imagen.
+09:51 AM
+Enséñame a programar el conocimiento, los conceptos que están en la imagen.
+09:49 AM
+Enseñame cómo puedo aplicar a mis programas el principio de transparencia referencial. Una expresión puede ser reemplazada por su valor sin afectar el comportamiento del programa.
+09:31 AM
+Audio is silent.
+09:24 AM
+Dame un ejercicio para aprender a programar esto.
+09:18 AM
+Siempre incluye referencias a los libros que tienes cargados.
+09:16 AM
+incluye en tus respuestas siempre referencias a los datos que tienes cargados
+09:11 AM
+analiza nuestras conversaciones. Las preguntas cada vez deberán ir subiendo de dificultad
+09:11 AM
+hazme preguntas para ayudarme a entender cómo podría utilizar lo que estoy aprendiendo en mi trabajo actual
+09:11 AM
+de igual forma, hazme preguntas para ayudarme a tener nuevos insights
+09:11 AM
+adempred
+09:11 AM
+siempre hazme preguntas para mejorar mi comprensión
+09:11 AM
+siempre haz preguntas para mejorar
+09:08 AM
+siempre dame traducciones de las palabras difíciles o técnicas de inglés a español
+09:08 AM
+pon énfasis en cómo se aplicarían estos conocimientos en TypeScript
+09:08 AM
+los ejemplos de código que me devuelvas deberán siempre estar en dos lenguajes: en TypeScript y en Scala
+09:07 AM
+tus respuestas no deberán quedarse solo en lo teórico. Enséñame cómo usan estos conceptos en Big Tech y en Start-ups
+09:06 AM
+sobre todo haciendo énfasis en el libro
+09:06 AM
+todas tus respuestas deberán tener referencias a estas fuentes
+08:55 AM
+De todos estos libros, si solo pudieras escoger el top 10 libros para aprender Scala, ¿cuáles elegirías?
+08:46 AM
+Functional Programming en Scala.
+08:46 AM
+Red Book Mentor es un mentor que ayuda a explorar el libro.
+08:42 AM
+Mapa 1 y mapa 2 van a seguir siendo iguales al principio. Mapa 1 ya tenía A1, agregarlo nuevamente porque es un set no genera dos elementos, los elementos siempre son únicos
+08:42 AM
+ImmutableJS va a reutilizar la mayoría de las estructuras existentes. Solo agrega lo que necesita
+08:32 AM
+¿Cuál es la diferencia entre un objeto y un mapa
+08:32 AM
+el map y el set en la librería ImmutableJS devuelven igual nuevos maps y nuevos sets
+08:29 AM
+Preferiría la opción B, porque cambiar una variable global es cambiar algo del mundo exterior, lo cual ya es un efecto secundario.
+
+Esa variable luego puede ser modificada por otras funciones o por otra parte del programa, lo cual empieza a volver la función impredecible. Ya sería un efecto secundario, porque hace más que retornar un estado, cambia un estado global.
+
+Alguien con mentalidad funcional preferiría pasar el índice y actualizar ese estado creando un nuevo estado y retornarlo.
+08:28 AM
+No, ya no sería una función pura porque tiene efecto de lado: más que retornar un valor, imprime en la consola.
+08:25 AM
+Explícame más sobre este punto, o sea, qué piensas.
+08:24 AM
+Pero, por ejemplo, un servicio web no puede ser 100% lógica pura, es solo funciones. En algún momento tiene que existir una función como un servicio que mezcla el resultado de las funciones puras del dominio con funciones impuras que van a ser de infraestructura, que guardan en la base de datos.
+08:24 AM
+Pero, por ejemplo, una, una, una.
+07:51 AM
+Audio is silent.
+07:50 AM
+Audio is silent.
+07:50 AM
+Audio is silent.
+07:50 AM
+Audio is silent.
+01:05 AM
+¿Cuándo es buena idea usarlos? ¿Cuándo es mala idea usarlos?
+01:05 AM
+¿Cuáles son las mejores prácticas, los patrones y los antipatrones?
+01:05 AM
+¿Para qué sirven? ¿Qué problemas resuelven?
+01:05 AM
+¿Qué son estos tipos de datos?
+01:05 AM
+Uno por uno, hasta no dejar ninguno.
+01:00 AM
+Y me enseñó cómo desarrollar este parser de JSON.
+01:00 AM
+Que me ayude a construir conceptos de forma incremental.
+12:59 AM
+Desde los conceptos más simples hasta los más complejos.
+12:59 AM
+Dame un tutorial paso a paso.
+12:48 AM
+¿Cómo controlo los defectos secundarios?
+12:48 AM
+¿Son malos los efectos secundarios?
+12:48 AM
+Explícame por qué una función pura no tiene que tener efectos secundarios.
+12:47 AM
+Cuando un desarrollador de software habla acerca del estado, ¿a qué se refiere?
+12:47 AM
+Explícame ¿Qué es el estado?
+12:42 AM
+Diseña como un tutorial que explique paso a paso cómo crear este parser de JSON.
+12:22 AM
+Dame un tutorial que me ayude a entender cómo programar esto.
+12:09 AM
+Dame un tutorial que me ayude a entender todos estos conceptos.
+12:01 AM
+Dame un tutorial que me ayude a entender qué son los efectos secundarios.
+12:01 AM
+Dame un tutorial que me ayude a entender qué son los defectos secundarios.
+December 21, 2025
+11:54 PM
+Dame un tutorial para entender la recursión.
+11:51 PM
+Dame un tutorial que me ayude a comprender cómo programar lazy lists.
+11:40 PM
+Ayúdame a entender lo que esta imagen me está queriendo decir. Ayúdame a programar las enseñanzas de esta imagen.
+11:40 PM
+Enséñame a programar código que no fase con el primer error sino que acumule errores.
+11:33 PM
+Dame un tutorial que me ayude a entender la generalización de combinadores.
+11:30 PM
+¿Y cómo puedo solucionar los problemas de deadlock?
+11:30 PM
+Ayúdame con un tutorial que me ayude a comprender qué es un deadlock.
+11:22 PM
+Dame un tutorial que me ayude a comprender qué es el estado y también lo que me está intentando enseñar esta imagen.
+11:15 PM
+Ahora, dame un tutorial que me enseñe a programar todo esto.
+10:52 PM
+Las lecciones tienen que seguir un orden lógico, siempre lleno, desde los conceptos más simples y desde los principios fundamentales a lo más complejo.
+10:45 PM
+Y como resultado final, ya uniendo todo, tenemos el parser.
+10:45 PM
+Hasta allá los conceptos más complejos.
+10:45 PM
+Los ejercicios parten desde los más simples, que ayudan a construir los conceptos más simples.
+10:45 PM
+Sí, ayúdame a crear este tutorial en código con ejercicios.
+10:45 PM
+Primero construimos bases sólidas y seguimos construyendo sobre esas bases sólidas el siguiente concepto.
+10:45 PM
+Explicando cada concepto necesario, teóricamente.
+10:45 PM
+En un archivo con ejercicios de lo más simple a lo más complejo.
+10:44 PM
+Vamos haciendo un tutorial de código para el Parse.
+10:44 PM
+Aquí tienes un plan de estudio para construir un parcel.
+10:42 PM
+Explica cada concepto en cada paso, y tenemos que ir desde lo más sencillo hasta las partes más complejas de construir el parcio.
+10:42 PM
+Eh.
+10:41 PM
+Ayúdame a construir un tutorial que vaya desde lo más sencillo para entender hasta lo más complejo de Ciro to Giro para construir el parser.
+10:41 PM
+Hay una parte que hablan acerca de los parsers.
+10:41 PM
+En el libro "Programación Funcional en Escala", de "Redbook", el libro rojo.
+10:41 PM
+Hay un capítulo del libro o una sección que habla.
+10:14 PM
+Ahora, dame una lección acerca de cómo programar monadas.
+10:08 PM
+Dame una lección para aprender a programar Functor.
+09:30 PM
+Ahora tengo una pregunta: esto de la inmutabilidad se usa para objetos en memoria, pero igual, ¿puedo tener inmutabilidad en la base de datos? O sea, es decir, nunca borro los registros que tengo en la base de datos, sino que siempre voy creando nuevos pero conservando los anteriores.
+09:24 PM
+¿Cuáles son las lecciones que debería llevarme aquí para mi carrera
+09:23 PM
+ImmutableJS, ¿en realidad cuándo es buena idea usarlo? O sea, ¿cuándo abrir esta librería?
+09:23 PM
+¿Por qué dices o cuándo necesitaría? Comparación por valor eficiente
+09:23 PM
+o sea, que es un estado de aplicación grande y complejo
+09:23 PM
+aquí se habla mucho del estado de la aplicación grande. ¿Qué es un estado de la aplicación grande
+09:23 PM
+por lo que puedes ver en internet, que usan más los desarrolladores Immutable o Immer, dame las comparaciones
+09:22 PM
+¿Qué piensan otros desarrolladores en Internet acerca de ImmutableJS
+05:50 PM
+¿Dónde brilla ImmerJS
+05:50 PM
+¿Cuáles son las fortalezas, las oportunidades, las desventajas y las amenazas de usar ImmerJS
+05:49 PM
+¿Qué dicen los programadores de Internet acerca de esta librería
+05:49 PM
+¿Recomiendas esta librería Immer para producción
+12:28 PM
+Incluye en tus explicaciones la versión incorrecta y la versión correcta con buenas prácticas. Siempre incluye los anti-patrones y los patrones, la mala práctica y la buena práctica, para poder contrastar.
+12:23 PM
+ahora vamos a estudiar ImmutableJS, inmutabilidad sin dolor
+12:16 PM
+ahora, si lo que veo es que de la forma funcional el código quedó
+12:15 PM
+Ayúdame a seguir profundizando mi entendimiento entre las diferencias de programar de forma imperativa y de forma funcional.
+11:15 AM
+Ayúdame igual a seguir analizando las diferencias, ayúdame en tener los pros y los contras. Ayúdame a analizar por qué sería bueno para mi carrera aprender esto
+11:14 AM
+y es como que tengo que siempre hacer dos pasos:
+
+
+
+Chequear el valor
+
+
+Luego acordarme de retornar null
+
+
+11:14 AM
+de igual forma, el flujo no es tan claro. No me dice línea por línea qué paso está, sino que tengo que saltar a una función
+11:14 AM
+entonces, terminé con cuatro nuls en el código
+11:13 AM
+Programación imperativa sí. O sea, para cada validación, tengo que retornar null y siempre estar pensando en que tengo que controlar ese null
+11:13 AM
+en cambio, en el código que es por
+11:13 AM
+y no tengo que estarme preocupando por poner if null. No, eso simplemente si ya confío que se va a hacer de forma automática
+11:12 AM
+usando esta versión funcional, en cada línea del código puedo leer el paso que va siguiendo, o sea, el flujo como en una línea de ensamblaje, como en el canal de Panamá
+11:12 AM
+Aquí ya empecé a apreciar un poco más la ventaja
+10:39 AM
+Código aún más funcional: convierte este código a una versión aún más funcional e intenta remover esa función `validarEmail` y nada utiliza las mejores prácticas de la programación funcional.
+10:31 AM
+Pero, en cambio, en el enfoque que es imperativo, de igual forma, si cae en la parte que dice que no acepte emails inválidos, igual cae en el null, y el otro código no va a correr.
+10:31 AM
+Si en alguna parte del proceso da NON, yo sé que las siguientes partes del proceso (como obtener el dominio y poner el dominio en mayúsculas) ya no van a correr.
+10:30 AM
+En el código funcional, no veo ningún if o true.
+
+Pero, por qué no tener ifs o true en el código es bueno? Explícame uno por uno. ¿Por qué es bueno no tener ifs? ¿Por qué es bueno no tener true? Esa es la parte que no acabo de entender.
+10:29 AM
+¿Se olvidó colocar el if en el código imperativo? Sí, o sea, el responsable soy yo de validar las cosas. Pero TypeScript sí me va a avisar.
+10:29 AM
+Si olvido con el
+10:21 AM
+aquí tengo dos códigos que hacen lo mismo en dos estilos de código diferente. ¿Cuáles serían las desventajas y ventajas de cada uno? Ayúdame a contrastar, a analizar y a entender sobre todo este código, sobre todo las analiza (o sea, las fortalezas, las oportunidades, las desventajas y las amenazas) de cada versión
+09:59 AM
+A ver, y ahora en este caso yo estoy diciendo que la firma retorna un string o retorna un error.
+
+¿En qué mejoraría usar la programación funcional o la librería en este caso?
+09:30 AM
+Igual, no tenemos que mantener lo que yo tengo en mi código. Más bien, dame tú las propiedades de esta respuesta, lo que se usa de forma estándar.
+09:23 AM
+Para retornar éxitos y errores para un cliente web, ¿qué formato me recomiendas? O sea, ¿cuál es el formato que se usa en Big Tech y la industria?
+09:13 AM
+¿Qué otras cosas pueden ser consideradas una firma mentirosa
+09:13 AM
+¿Qué otras puede
+09:11 AM
+¿Por qué algunos programadores expertos opinan que los tipos son lo más importante
+08:53 AM
+¿Ese throw podría ser considerado un side effect?
+08:51 AM
+Instalo un linter en todo mi proyecto para que me ayude a dar formato al código.
+08:34 AM
+¿Puedes ayudarme encontrando experiencias de programadores en internet acerca de usar esta librería, o sea los comentarios que dicen?
+08:26 AM
+Lo que tengo que ser bastante cuidadoso con la lógica del código para cuando, por ejemplo, valido una entrada del usuario, poder decir si es válido o inválido.
+08:26 AM
+Pero si me pasa que he visto errores y que no sé de dónde vienen.
+08:26 AM
+Errores: donde "Find It". La verdad es que no he visto en bastante tiempo porque TypeScript y que tenga 100% de test unitarios con cobertura ayuda bastante.
+08:25 AM
+Para serte sincero, aún no a profundidad. O sea, me cuesta observar cuál es la ventaja. O sea, sí, he tenido errores de undefined, o a veces los try-catch no son tan comprensibles, pero…
+08:07 AM
+sin no usar a esta librería, ¿qué problemas tendría
+08:07 AM
+¿En qué me ayuda? ¿En qué me mejora? ¿Cómo me hace más fácil la vida esta librería?
+08:07 AM
+¿Por qué se prefiere usar esta librería y por qué se prefiere un enfoque funcional? O sea, ¿cuál es el valor agregado
+08:07 AM
+el contra, o sea, solucionar de la forma normal vs solucionar con esta librería. ¿Qué beneficios aporta
+08:06 AM
+¿Por qué usar esta librería agrega valor
+08:06 AM
+para cada uno de los casos, ayúdame a entender.
+06:57 AM
+¿Por qué no se puede sacar la raiz cuadrada de un número negativo?
+06:33 AM
+Audio is silent.
+December 20, 2025
+06:03 PM
+Incluye en tus explicaciones casos de estudio de empresas Big Tech.
+06:03 PM
+Incluye en tus explicaciones casos de estudio de empresas Big Tech.
+05:51 PM
+Si es que existe, ¿puedes instalarlo ahora en Anti-Gravity?
+05:51 PM
+¿Hay alguna extensión o algo parecido al Intelli o a lo que hace TypeScript, que me muestra cuándo voy a tener un error de compilación, pero para escala?
+05:49 PM
+¿Quién inventó la inmutabilidad
+05:49 PM
+¿Cuándo sí y cuándo no debería usar inmutabilidad
+05:49 PM
+¿Cuál es la desventaja de usar inmutabilidad
+05:49 PM
+¿Cuál es la amenaza de usar imitabilidad
+05:49 PM
+¿Cuál es la oportunidad de usar ImmutableJS
+05:49 PM
+¿Cuál es la fortaleza de usar la inmutabilidad
+05:49 PM
+sobre todo, ayúdame a entender cuándo es una buena práctica o las mejores prácticas y las peores prácticas. O sea, cuándo es mala idea usar inmutabilidad
+05:48 PM
+nómbrame varios casos de estudio o cosas didácticas en las que pueda atravesar este concepto y que me puedan decir qué evita, para qué me sirve esto
+05:48 PM
+entonces, ayúdame ya a aterrizar este tema en la realidad. Por ejemplo, cuéntame un sistema de facturación, esto de la inmutabilidad que Books evita. O en un sistema ya real en plataformas de big tech, un ejemplo con aplicaciones conocidas, por ejemplo, en Instagram, en TikTok. Esto de la inmutabilidad y qué errores evita. O en una app de electrónica, la lectura del libro, no en un navegador web. Esto de la inmutabilidad que evita.
+
+Dame muchos, muchos ejemplos ya basados más en la realidad.
+05:43 PM
+De igual forma, dame todo un tutorial en otro archivo explicando cómo usar esta librería FPTS.
+05:42 PM
+Dame todo un tutorial largo y extenso explicando cómo usar InmutableJS.
+05:41 PM
+Dame todo un archivo largo y extenso explicando cómo usar iMer.js.
+05:16 PM
+Explícame que hacen estos métodos y cuál debería ser la alternativa para hacer lo mismo pero sin mutar el objeto o el arreo original
+05:15 PM
+Genérame un archivo donde me expliques estos métodos y cuáles otros métodos de TypeScript y de JavaScript no debería usar en programación funcional porque mutan arrays u objetos. Explícame por qué los mutan y, además, dame cuáles serían las alternativas funcionales para poder hacer lo mismo pero sin mutar el objeto original.
+05:13 PM
+Explícame, si no quiero usar estos métodos, ¿cuáles son las alternativas que tengo
+05:13 PM
+Explícame por qué estos métodos mutan el array
+05:07 PM
+Explícame por qué crear nuevos objetos con nuevos valores en lugar de modificar el original es mejor. Sobre todo quiero saber las consecuencias prácticas; ayúdame a entender que bugs está evitando o por qué se hace
+05:05 PM
+Explícame mejor qué son los types en TypeScript y cuándo debería usarlos. O sea, explícame los mejores casos de uso
+05:01 PM
+Cuéntame varias historias acerca de cómo un objeto mutable puede causar bugs, casos de estudio, casos de la vida real que pasan en las empresas.
+04:59 PM
+Ayúdame a entender este código a profundidad. Sobre todo, a entender lo que me quiere enseñar.
+02:13 PM
+¿Se puede combinar programación funcional con programación orientada a objetos?
+02:13 PM
+Pero, ¿hoy en día? ¿No es cierto? ¿2025? ¿Cuál es el paradigma que más se usa a nivel profesional? O sea, ¿qué prefieren los expertos en programación? ¿Programación funcional o programación orientada a objetos?
+02:12 PM
+Si el objeto es mutable y hay varios hilos accediendo al mismo alumno, corremos el riesgo de que esos procesos se pisén y dos objetos lean la nota del promedio e intenten actualizarla al mismo tiempo, produciendo los resultados incorrectos.
+02:11 PM
+Al menos que siempre que actualices nota, no devuelvas el objeto mutado; si no, devuelvas un nuevo objeto.
+02:11 PM
+Claro, aquí corres el riesgo de perder el historial de cada vez que modificas y ya no poder volver al objeto original.
+02:10 PM
+Aquí, en ese disk promedio, si o sea el objeto está mutando cada vez que actualizas una nota, pero también podrías hacer devolver un nuevo objeto cada vez.
+
+Podrías hacer esta clase "alumno" inmutable.
+02:07 PM
+Ayúdame a entender de forma didáctica cómo utilizar estos conceptos como programador profesional.
+02:07 PM
+Dame ejercicios para poder internalizar los conceptos.
+02:07 PM
+Analiza cada uno de estos conceptos.
+01:51 PM
+Piensen en esto: cada vez que un programa abre un archivo o
+01:49 PM
+De igual forma, dame una lección que me ayude a comprender los conceptos de este gráfico.
+01:46 PM
+Dame un ejemplo donde me enseñas a programar las lecciones de este gráfico.
+01:44 PM
+¿Ves algún problema con esta idea o, ¿sea crítica esta idea?
+01:43 PM
+Podríamos jugar con la idea de Core y Shell, pero ¿qué?
+
+Podríamos decir que el Core va a ser con programación orientada a objetos, clases, entidades. Y el Shell, todo lo que sea la capa de aplicación e infraestructura va a ser funcional.
+01:43 PM
+Consultar en la base de datos cuantos cupos quedan en lectura y/o es. Una consulta en la base de datos en infraestructura.
+01:43 PM
+Enviar un email de bienvenida del alumno, efecto en la capa de infraestructura.
+01:43 PM
+Verificar si el usuario tiene promedio suficiente para inscribirse es dominio puro, lógica de negocio.
+12:30 PM
+Por eso, esta operación debería ser atómica. Es decir, si A y B se ejecutaron con éxito, vamos a tener el resultado correcto. Si uno de los dos falla, debería lanzar un error y el proceso se debería de volver a repetir.
+12:30 PM
+Entonces, el proceso B devolvería 1, y ese sería el resultado incorrecto.
+12:29 PM
+Pero como el proceso A nunca llegó a escribir
+12:29 PM
+O sea, se esperaría que el contador sea 2, ¿no cierto? Porque disparo proceso uno, te voy a sumar uno, y de ahí el hilo 2.
+12:26 PM
+and that was difficult. Oh my god, difficult is such an understatement. It was a nightmare
+12:25 PM
+Ayúdame a entender todo lo que me quiere enseñar este código
+12:21 PM
+El ejemplo debe ser didáctico para que pueda entender cómo se unen los conceptos de arquitectura limpia con programación funcional.
+12:21 PM
+Debería existir una carpeta para TypeScript y una carpeta para Scala.
+12:21 PM
+Usando programación funcional.
+12:21 PM
+Dame un ejemplo de la arquitectura ideal.
+12:21 PM
+En una carpeta separada.
+11:36 AM
+Y ¿cómo puedo solucionar los bugs de Rail Condition?
+11:35 AM
+Dame un tutorial que me ayude a entender en profundidad el problema de bug de race condition.
+10:55 AM
+Enséñame a programar cómo evitar este problema.
+10:44 AM
+
+
+El usuario escribe mal su contraseña. Es algo que puede pasar, no es para votar una excepción try-catch, es un option nulo.
+
+
+El cable de red del servidor se desconectó justo al enviar una petición, ya es un error de red si es un try-catch.
+
+
+El usuario intenta loggearse, pero su cuenta está bloqueada a sus intentos fallidos previos. Es igual, como que una regla de negocio, entonces sólo es una respuesta o nulo.
+
+
+10:36 AM
+En un archivo damos una lección acerca de esto: ¿cómo puedo programar estos conceptos? O sea, ¿cómo puedo programar y saber cuándo puedo retornar un error suave y que el programa siga corriendo normalmente? O ya un error que necesito atraparle en un try-catch.
+10:27 AM
+necesito aprender qué características componen a un buen sistema de pagos
+10:27 AM
+necesito aprender todas las características y las mejores prácticas de la industria de los bajos
+10:27 AM
+necesito aprender a manejar sistemas de pagos que sean super auditables
+10:27 AM
+necesito manejar sistemas de pagos que sean independientes y sea imposible que puedan cobrar doble
+10:26 AM
+necesito aprender a desarrollar sistemas de pago que puedan moverse entre nubes, que sean multiclouds
+10:26 AM
+necesito aprender a diseñar sistemas de pago donde varios desarrolladores de software puedan desarrollar al mismo tiempo sin pisarse
+10:26 AM
+necesito aprender a manejar sistemas de pago con diferentes configuraciones y diferentes gateways
+10:26 AM
+necesito aprender a programar independencia en los sistemas de pago
+10:06 AM
+porque, si el gateway de pagos me dio time-out, me devuelve esa respuesta y ahora yo no sé si el pago fue hecho o no. Entonces, ante esa situación, ¿qué debería hacer? ¿Cómo debería programarlo? ¿Cómo debería manejar el software? ¿Cómo debería manejar los errores de time-out en los sistemas de facturación
+10:06 AM
+necesito aprender qué hacer cuando un gateway de pagos me da timeout
+10:06 AM
+quiero aprender a hacer plataformas de pago
+10:03 AM
+Dame lecciones para aprender a programar estos conceptos.
+10:03 AM
+Analiza los conceptos en este texto.
+10:03 AM
+Ve paso por paso.
+09:59 AM
+Enséñame a programar este concepto.
+09:46 AM
+Sí, o sea, estaba buscando Libros que me ayuden a aprender cómo hacer transacciones financieras, pero que hablen exactamente de eso. Por ejemplo, en los pagos: ¿cómo se hace un pago? ¿De qué me debería cuidar? ¿De qué no, por ejemplo, cuando tengo un timeout, qué debería hacer? ¿Cómo se deberían guardar los logs, los registros?
+
+O sea, quiero un libro que hable explícitamente de cómo manejar transacciones financieras, cobros, pagos, etc.
+09:46 AM
+Dame lecciones acerca de cada uno de estos temas. Ayúdame a aprender a programar todo lo que dice este texto.
+09:42 AM
+actualmente trabajo en el área de sistemas, en el área de billing, de facturación, de pagos.
+
+¿Qué libro sobre desarrollo de software debería leer?
+09:29 AM
+TypeScript me avisa que no puede simplemente leer la propiedad de name, porque u_usuario puede ser null.
+09:29 AM
+TypeScript me avisa que no puede simplemente leer la función.
+09:28 AM
+Entonces, entendí para controlar situaciones esperadas como cuando no encuentro un usuario, mejor devolver NULL y controlar eso con lógica de negocio, que es un mejor estilo de programación, porque es una situación esperada.
+
+Ahora, lo que no tengo en mi cabeza es: ¿Qué es una situación esperada? y ¿Qué es una situación no esperada?
+
+Dame una lista de las situaciones esperadas más comunes y una lista de las situaciones inesperadas más comunes, que se debería manejar con un try-catch.
+09:26 AM
+¿Hay como aclarar en la firma que se está lanzando una excepción, o que puede ser "user" o "excepción"?
+09:22 AM
+¿Por qué aquí es mala idea lanzar `throw new Error("usuario no encontrado")`? Hacer este efecto secundario lanzando una excepción.
+
+O sea, explícame un poco más también por qué eso no es un buen estilo de programación.
+09:06 AM
+Si aún no tengo un ejercicio que me enseñe a programar lo que está en la imagen, enséñame a programar lo que está en la imagen.
+09:04 AM
+En la línea R2, el sistema vuelve a recalcular porque, cuando intenta verificar si tiene o no ese objeto en caché, siempre le va a decir que no, porque cache.hasconfig chequea si ya tiene, es aquí.
+
+Pero, al crear dos objetos, va a chequear el valor en memoria y, pese a que los dos objetos lucen igual, el valor en memoria aquí es diferente. Entonces, por eso, nunca logra hacer el cache y siempre recalcula.
+
+Incluso el cache, cada vez se va acumulando y se va haciendo un objeto más grande.
+08:37 AM
+Ahora tengo una pregunta: al mantener siempre los objetos inmutables, es decir, cuando quiero modificar o agregar nuevos elementos a los objetos antiguos, siempre termino con dos objetos: antiguos y con objetos nuevos.
+
+¿Hay algún bug o algo de lo que tengo que cuidarme si utilizo esta técnica, cuando programo de forma inmutable, para no originar otros bugs por otra causa?
+08:32 AM
+Enséñame a cómo evitar las condiciones de carrera en la base de datos.
+08:30 AM
+Y ¿cuál es el hotel? ¿Cuál sería el Airbnb más barato? Ayúdame a organizar un viaje Quito-Cuenca pero gastando lo mínimo de dinero.
+01:41 AM
+The transcription was dismissed.
+01:36 AM
+Ahora se generaron demasiados archivos, necesito un.gitignore.
+01:24 AM
+Mejora este prompt para ayudarme a aprender mejor.
+01:16 AM
+Dame una lección sobre
+01:15 AM
+No, en Scala, nada me garantiza que sea pura; solo por su definición, tengo que confiar en el programador o leer el código.
+01:11 AM
+Enséñame a programar esto.
+01:08 AM
+Enséñame a programar esto.
+01:06 AM
+Dame lecciones sobre estos temas. Si es que no las tengo aún, si es que ya las tengo, simplemente vas a la siguiente lección.
+12:53 AM
+Enséñame a programar esto.
+12:52 AM
+Si aún no tengo lecciones sobre estos temas, agrégalos.
+12:52 AM
+Analiza las lecciones que hay en este texto.
+12:31 AM
+En una función pura que recibe solo el saldo y el monto como parámetros simples, para poder reutilizarla en otros lugares. Que sea fácil de probar y que no tenga sorpresas o efectos secundarios esperados.
+12:31 AM
+Crea archivos de las lecciones que aún no tengo.
+12:31 AM
+Separa estos temas en unidades de estudio.
+12:26 AM
+Si aún no las tengo, dame lecciones sobre paralelismo, memoización y composición.
+12:13 AM
+Enséñame a programar esto.
+12:01 AM
+Tenemos que empezar por ahí, por decirle cómo ignorarlos para
+12:01 AM
+Cada tabulación, cada salto del
+12:01 AM
+Bliss.
+12:01 AM
+So
+12:00 AM
+Dame cada una de estas lecciones en archivos separados.
+December 19, 2025
+07:49 PM
+Dame una guía para aprender a construir mi propio parche.
+07:03 PM
+Las cosas a la vez.
+07:03 PM
+Como mutación, mete una variable muy complicada en la ecuación: el tiempo. De repente, el
+07:03 PM
+Hello.
+07:02 PM
+¿En serio puede cambiar la forma?
+07:00 PM
+O sea, aquí quieres decir que una función impura siempre va a ser, va a estar en la capa de infraestructura, pero en la capa del dominio, en la capa del negocio, en las capas más internas, siempre tienen que ser funciones puras.
+07:00 PM
+¿Por qué dices que no es posible componer, combinar funciones simples en complejas con funciones impuras? O cachar, memoización con funciones impuras.
+06:59 PM
+¿Por qué es tan importante poder paralelizar? Y por qué tienen que ser funciones puras para poder paralelizar?
+06:58 PM
+O sea que las funciones impuras, en realidad, no son un problema en sí, sino que simplemente es un nombre que se llama "funciones impuras" porque sabemos que van a tener efectos secundarios.
+
+A veces hay que usarlas, pero hay que entender las consecuencias. O la recomendación es nunca usar una función impura.
+06:57 PM
+¿Por qué si modificara el array original dices que el efecto sería impredecible, pero cuando actúo sobre una nueva lista creando una copia y dejando intacto el original, el efecto siempre es predecible?
+
+¿Por qué dices esto? ¿Esto qué soluciona? ¿Qué bugs resuelve?
+06:56 PM
+¿Por qué modificar el objeto que viene en el input es mala idea?
+
+Es considerado buena práctica no modificar el original, siempre mantenerlo. Yo quiero alterar, hacer una alteración, crear una copia porque eso es bueno. ¿O sea? ¿Qué problemas resuelves?
+06:53 PM
+¿Por qué hacer un println (o un llamado a Datadog, o algo donde quiero que se logueen los datos) es un problema al momento de construir buen software? ¿Por qué ese efecto secundario es un impedimento para construir buen software?
+06:51 PM
+¿Por qué esto es importante para construir buen software?
+06:43 PM
+Se me hace difícil imaginar una función que, cuando es llamada, no haga ninguna modificación en el mundo exterior.
+
+O sea, explícame un poco más en la realidad cómo se aplican estos conceptos. Por ejemplo, una función de "quedo, quiero hacer una llamada", tiene que hacer una modificación en el mundo exterior, tiene que hacer una conexión o una función de "guarda" en la base de datos, tiene que hacer un guardado en la base de datos.
+
+¿Cómo es esto posible? ¿A qué se refiere? Siento que no estoy entendiendo bien el concepto.
+06:43 PM
+Se me hace difícil imaginar una función.
+06:38 PM
+Siempre genera los ejemplos de código en TypeScript y en Scala para ir aprendiendo los dos lenguajes.
+06:36 PM
+Dame un ejercicio que me ayude a entender este fragmento del texto.
+06:36 PM
+Audio is silent.
+06:35 PM
+Sé didáctico para que me ayudes a aprender programación funcional en tiempo récord.
+06:35 PM
+Siempre comenta todo el código generado, línea por línea, y explícalo con comentarios en el código.
+06:35 PM
+El objetivo de este proyecto es aprender programación funcional.
+06:32 PM
+Ayúdame a entender qué me está queriendo decir este fragmento de texto.
+01:20 AM
+Mantén ambos y actualízalos.
+01:19 AM
+Revisa que este archivo vaya a funcionar con los cambios.
+01:04 AM
+Ayúdame a solucionar este problema que estoy teniendo al momento de hacer diplomas.
+12:59 AM
+Ayúdame a actualizar también las llamadas los ejemplos en restClient. Dame un flujo completo para decir: el usuario se crea, se loguea y luego elimino la sesión.
+12:59 AM
+Ayuda en matemáticas.
+12:05 AM
+Sí. O sea, reviso mi implementación de registrar usuario, hacer login y hacer logout para usar este patrón óptimo del de single table design.
+12:03 AM
+Mira la fotografía. No necesariamente veo que esté usando el patrón que me estás describiendo exactamente.
+December 18, 2025
+11:57 PM
+el usuario y la sesión son una sola tabla, no dos tablas: una para el usuario y otra para la sesión.
+11:57 PM
+Explícame por qué es mejor usar una sola tabla para
+11:53 PM
+Considerablemente. No solo seguimos con el registro.
+11:52 PM
+Mira las actualizaciones que he tenido en el proyecto.
+11:51 PM
+Hello.
+11:12 PM
+Agrega un logoutUser. También revisa que registerUser y loginuser sigan funcionando con los nuevos cambios.
+11:10 PM
+So okay.
+06:34 PM
+Ayúdame a entender qué es mantener un software.
+06:32 PM
+Por favor, ayúdame a tener todos estos casos de uso completos: el registro, el log in y el log out, siguiendo las mejores prácticas de la arquitectura limpia. De hecho, el objetivo final de todo este ejercicio es aprender arquitectura limpia.
+06:32 PM
+Date cuenta que ahora mi aplicación tiene un user controller que permite hacer a través de servicios el registro y el log in, pero me falta hacer el log out.
+05:39 PM
+The transcription was dismissed.
+05:06 PM
+Explícame que quieren decir los desarrolladores de software con "un gateway encapsula el acceso a un sistema externo". El resto de la PB no necesita conocer sus detalles.
+04:19 PM
+Hi!
+04:08 PM
+Inspírate en los prompts que ya tengo y dame uno mejorado
+04:07 PM
+Necesito que mejores el prompt que te pase.
+
+Lo que en verdad tengo es varios libros cargados del notebook. Imagino que son muchos, muchos libros de desarrollo de software.
+
+Y quiero solo identificar los subtemas que me conviene estudiar (o sea, cual es el 20% más importante que me permite hacer el 80% que en realidad se usa en el campo, en la vida real).
+
+Más allá de temas académicos, o en cualquier otra circunstancia, ¿qué es lo más aplicable?
+
+Entonces, ¿cómo puedo descubrir el contenido? Dame un prompt que me ayude a eso.
+December 15, 2025
+02:09 AM
+Estas rutas que tengo expuestas desde Amazon son seguras. Dejarlas así, sin clave y sin token, no puede ser atacadas por algún hacker. O alguien me puede hacer algún ataque.
+01:18 AM
+¿Qué quiere decir "anémico"?
+01:18 AM
+Ahora, necesito entender cuando un desarrollador de software habla acerca de un modelo anémico, a qué se refiere y la palabra anémico en general, qué quiere decir.
+12:56 AM
+cuando los programadores hablan de tenants, ¿a qué se refieren?
+12:45 AM
+Efecto bastante crítico. Bueno, hoy vamos a sacar a la luz esa falla y lo más importante, a ver cómo se
+12:17 AM
+Notebook LM de Google entiende mejor el formato PDF o el formato EPUB.
+12:16 AM
+un modelo de lenguaje entiende mejor.
+12:14 AM
+¿Cuáles crees que son los libros que yo podría leer para entender mejor todos los temas que está tratando este código o todas las tecnologías que está manejando este código?
+December 14, 2025
+11:58 PM
+Audio is silent.
+05:17 PM
+cuando un desarrollador de software habla acerca de serializar y de deserializar, ¿a qué se refiere?
+05:02 PM
+b) El frontend recibiría el usuario creado, pero el campo "created" estaría vacío o indefinido, aunque en la base de datos exista.
+04:57 PM
+¿Por qué aquí retornas el user que te vino como input en el parámetro? Y no es como que retornas el user desde los datos que devuelve la base de datos. La base de datos devuelve los datos crudos de user e instancias de un nuevo usuario.
+04:49 PM
+B) El usuario se guardará correctamente, pero el campo "isPremium" no aparecerá en la base de datos porque no es mapeado en el mapper.
+04:46 PM
+elijo la opción C: Infraestructura. Dynamo no divide y uso el repositorio porque las transacciones son un detalle técnico de cómo Dynamo guarda los datos.
+04:18 PM
+Pregunta: ¿por qué en esta consulta utilizas "limit 1"? Se espera encontrar más de un usuario con el mismo email repetido. ¿Puedo configurar Dynamo para que no puedan existir dos usuarios con el mismo email?
+04:16 PM
+lo guarda como nulo.
+04:11 PM
+¿Qué hace esta opción? ¿Para qué sirven Dynamo?
+03:48 PM
+Quiero empezar a entender qué pasa en "register user" desde el principio hasta el fin.
+02:33 PM
+Dame recomendaciones de libros, blogs, videos y material que me ayude a entender más en profundidad los temas que estamos tocando
+02:29 PM
+Pero solo dime los que me faltaría agregar, arriba están los que ya tengo.
+02:28 PM
+Revisa mi lista; ya están todas las que me sugeriste o faltaría alguna.
+02:25 PM
+¿Cuál me falta agregar en mi lista de desactivados? ¿O están todos?
+02:14 PM
+¿Y a esta lista qué comandos me recomiendo agregar?
+02:12 PM
+¿Qué comandos me recomiendas aquí agregar en anti-gravity?
+01:51 PM
+Incluye un ritmo en el CDK explicando que hace cada uno de los comandos.
+01:49 PM
+Agrega todos los comandos que necesito para SAM, o sea, como por ejemplo, correr un drive ROM de SAM o hacer deploy de toda la infraestructura con el CDK.
+01:45 PM
+Si ves mejoras, hazlas. La idea es que pueda tener en un solo archivo todo el código del proyecto, menos los archivos que están en los gitignore, para poder pasarle esto a otros LLMs para que analicen mi código. Y que conforme vaya agregando o quitando archivos, esto no se rompa.
+01:42 PM
+Fue muy buena idea generar este archivo generate_context.py. Por favor, incluirlo dentro de la carpeta de scripts.
+01:37 PM
+Explícame de forma simple qué es esta opción activa y desactivada.
+01:33 PM
+Cambia el nombre, ponle npm run local dynamodb-admin
+01:32 PM
+Cambia el nombre, ponle "npm run local dynamo".
+01:31 PM
+Incluye este comando en el package.json, por favor.
+01:29 PM
+Pero quiero ver el contenido del Dynamo que está corriendo en mi local.
+01:28 PM
+¿Existe alguna extensión de Visual Studio Code o algún programa que me permita ver el contenido de Dynamo con una interfaz gráfica?
+01:19 PM
+Pero ayúdame a solucionar este problema: ¿cómo se solucionaría? ¿Se pondría en otras carpetas separadas o en el mismo texto? ¿O qué nombre se daría a la carpeta para que quede más uniforme?
+01:18 PM
+¿Cuál sería el nombre que se daría un arquitecto de software? O sea, siguiendo más los textos.
+01:16 PM
+En el mapeo, la información está entrando para la aplicación en el server de LICER y esta saliendo.
+01:15 PM
+¿Cuál sería la diferencia entre un serializer y un mapper en este contexto? ¿Está bien que el archivo API Gateway Request Mapper esté dentro de la carpeta serializers
+01:11 PM
+En este archivo no deberás incluir ninguno de los archivos que han sido puestos en los.gitignore.
+01:11 PM
+Este archivo debe de contener en un solo archivo todo el código del proyecto. Esto es útil para poder pasarle contexto a otros LLMs.
+01:11 PM
+hey guys!
+01:11 PM
+Debes actualizar el archivo.
+12:57 PM
+Y escribe otra regla que le indique que todo el código generado deberá ser explicado didácticamente con comentarios en el código línea por línea.
+12:56 PM
+Escribe también otra regla para la gente que le indique que en este proyecto, lo importante es aprender cleanArchitecture de la forma más pura posible.
+12:56 PM
+Ahora, ayúdame a escribir reglas para la gente que me ayuden a que mi proyecto siempre siga las mejores prácticas de cleanArchitecture.
+12:55 PM
+Entiende las mejores prácticas de cleanArchitecture que están implementadas.
+12:55 PM
+Analiza toda la arquitectura que tengo del proyecto, tanto en el código fuente como en el CDK.
+12:55 PM
+Si analizo toda la arquitectura que tengo en el proyecto, tanto del código como del SDK, creo en Cursor Web crear ah
+12:52 PM
+¿Por qué Anti-Gravity no puede editar la carpeta.agents para escribir sus propias redes
+12:51 PM
+Reviso mis archivos de GID Ignore, no encuentro nada respecto a esto.
+12:50 PM
+Agrégate una regla que diga que este proyecto tiene que respetar las normas de cleanArchitecture.
+12:48 PM
+Can I ask Anti-Gravity to edit his own project rules?
+12:48 PM
+Why "anti-gravity" cannot edit themselves his file rules?
+12:47 PM
+La capa de vistas, su responsabilidad es únicamente dar los formatos de respuesta, pero no parsear un event body. Para mí, eso estaría mejor en un mapper o en un serializer, ¿no? Y con su DTO. Por favor, respeta cleanArchitecture y haz los cambios que sigan mejor la cleanArchitecture.
+12:44 PM
+¿Se necesita una función o se puede simplemente asignar directo?
+12:36 PM
+Incluso esto se puede simplificar aún más. `registerUserHandler` debería pasar todo el evento directamente a `userController.register` porque estos `userController` van a ser utilizados solo por Lambda. Entonces, haz ese registro directo, `registerUserHandler` va a llamar directamente a `userController.register` y todo el manejo de esta lógica se va a hacer dentro del controlador.
+12:28 PM
+Actualice este archivo con los últimos cambios.
+12:03 PM
+Pon estos bloques de las lambdas también dentro de try-catch. Y si sucede un error, igual usa View GetResponse.
+11:50 AM
+En resumen, simplifica esta capa de presentación para main, para las 2 lambdas.
+11:50 AM
+De igual forma, no crees una CapturingView extendida, sino que simplemente, en nuestra capa de views, ya adapta una view para responder como necesita Amazon directamente.
+11:49 AM
+Me parece una sobre ingeniería. O sea, simplifica. En el registerUserHandler ya haz lo que hace directamente el ApiGatewayAdapter handler.
+11:48 AM
+Esta parte de aquí que en el handler llame un ApiGatewayAdapter handle. Cuando ya estoy dentro de un archivo que solo va a servir para AWS.
+11:38 AM
+¿Que empieza con mayúscula o todo minúscula?
+11:36 AM
+De igual forma, aplica esta convención para mi Dynamo que corre en local.
+11:34 AM
+Pero no, esto también tiene que ser similar a los cambios que hicimos en el lambda. Tienes que tener nombres más fáciles de entender.
+11:34 AM
+De igual forma, estás viendo que la tabla en producción se llama así.
+11:30 AM
+Ahora, revisa todos mis cambios para que sean congruentes, ya que solucionamos el error.
+11:23 AM
+Intenta ahora.
+11:22 AM
+El archivo está vacío. Complete la información.
+11:19 AM
+Agrega estos datos relevantes de cómo se configuran los ambientes en este archivo.
+11:15 AM
+Damos los nombres dinámicos ahora.
+11:12 AM
+Ayúdame a solucionar el siguiente problema en Amazon: no me gusta cómo se están creando las landas con los nombres que se están creando.
+11:01 AM
+Ayúdame a poner en el Ritming documentación acerca de cómo debuguear. Arregla los cambios que puse.
+10:53 AM
+Entendí.
+
+Entonces, las variables de ambiente quedaron en dos lugares: en local run y en main.ts.
+
+No, no manejes en dos lugares, solo maneja todo en main.ts. Las variables de ambiente que estaban siendo manejadas en local runs, elimínalas.
+10:49 AM
+Estas variables de ambiente aquí en el comando no son óptimas. Crea un archivo.env para local y coloque esas variables de ambiente que estás usando para correr en local ahí. Y en el script local runs TS, importa el archivo de variables de ambiente local.
+10:39 AM
+Estoy trabajando en este código, en este proyecto. Entonces, me gustaría que me recomiendas libros, recursos, blogs, foros que me ayuden a entender más profundamente todo lo que estoy haciendo
+10:19 AM
+Sí, funciono. Ahora, ¿esta es la mejor manera de correr un lambda de forma local en mi proyecto? ¿O existe algo mejor? ¿Por qué tengo que siempre generar este archivo template.yaml?
+09:58 AM
+This is the opus, the cloud opus, in anti-gravity.
+09:46 AM
+No intentes alternativas con ScriptWalk. Haz que funcione con SammyDoc.
+09:44 AM
+Hice otra vez lo de Docker. Ya puse Docker a ejecutar.
+09:42 AM
+¿Necesito para que esto funcione o qué tengo que hacer para que esto funcione?
+09:40 AM
+The transcription was dismissed.
+09:39 AM
+¿Cuál es el uso correcto de "scan" en DynamoDB? ¿Para qué funciona "scan"? O sea, ¿cómo se usa "scan" de forma correcta en DynamoDB? ¿Para qué existe ese método?
+12:55 AM
+¿En qué capa crees que está el error? En la capa de infraestructura. ¿Qué archivo es el sospechoso principal de haber olvidado mapear ese campo? El archivo de mapper.
+12:43 AM
+Tu Alicia, es tu archivo.
+12:41 AM
+Audio is silent.
+12:36 AM
+Siempre que vayas a correr comandos complejos, solo pásame el comando y yo los corro.
+12:21 AM
+Para las variables de ambiente, es posible usar la librería dotenv.
+12:08 AM
+Explícame si con esto del newVersion puede evitar el error de tener dos instancias de newUser en memoria que me pueden dar problemas.
+December 13, 2025
+11:51 PM
+¿Me puedes dar los links a estas fuentes
+11:39 PM
+Cuéntame eso, como que algunos adblockers son virus.
+11:36 PM
+¿Cuál es el mejor y más seguro adblocker que me recomiendas?
+11:30 PM
+¿Cuáles son los top libros recomendados por expertos en la industria para aprender sobre AWS como desarrollador actualmente?
+11:24 PM
+O sea, que si me equivoco usando este Global Secondary Index, lo borro y vuelvo a crear uno correcto. Dynamo se va a encargar de hacerlo para todos mis datos que ya tengo. Esto implica costos adicionales.
+11:23 PM
+Aquí pregunta: ¿Luego de haberse creado un Global Secondary Index, puede cambiar?
+11:20 PM
+No hagas cosas que sean para TEF y actúa como si esto fuera código para producción. No borres la tabla.
+11:16 PM
+Explícame para qué sirven estas dos librerías.
+11:11 PM
+Explícame esto, y sobre todo lo más fundamental: ¿para qué sirve la librería SBILD?
+10:53 PM
+Explícame qué es el mapa de contexto, como a un principiante.
+10:52 PM
+Explícame que es la Anti-Corruption Layer como a un principiante.
+10:52 PM
+Explícame qué es el bounded context como principiante.
+10:37 PM
+Transcription by CastingWords
+09:53 PM
+Le paso dis y le paso null a un objeto vacío. Simplemente no se va a registrar en ningún stack y no se va a desplegar nada. Va a lanzar error incluso.
+09:47 PM
+Y luego de esto, en Clean Arc Stack, luego de llamar a Super con las configuraciones básicas en el cuerpo del constructor, no asigna nada a este objeto, pero simplemente va declarando línea por línea todos los recursos que se van a crear y cómo van a estar unidos.
+
+O sea, ¿cómo se llama este patrón?
+09:21 PM
+¿Qué patrón de diseño se está siguiendo aquí? Y ¿por qué digo "New CleanArcStack"? Y le paso una app, le paso el nombre del stack y de ahí un objeto para qué sirve todo esto
+09:19 PM
+¿Qué son los source maps? Y qué quieres decir con "ayuda a ver errores de TypeScript originales"
+05:49 PM
+Ayúdame a entender todos estos archivos y carpetas dentro de mi proyecto CDK
+05:40 PM
+Revisa todos los archivos que tengo con modificaciones. Es seguro subir a Git?
+05:37 PM
+Pon una orden al principio de All Codes Context que diga que no tiene que incluir archivos que estén en el.gitignore, y no tiene que contener información sensible. Y actualice el archivo, por favor.
+05:36 PM
+Reviso todos los archivos que ahora voy a subir para saber que no existe nada: sean datos sensibles que no puedo subir a GitHub.
+05:15 PM
+Siempre que necesites correr un comando, dámelo a mí para correr y recuerda esta orden en el proyecto.
+05:11 PM
+Veo que esta llamada a mi ruta quedó al internet. No. Protégela con un token.
+05:10 PM
+Al inicio del archivo, pon una descripción que aclara que este archivo contiene todo el código para poder pasárselo a un LLM para poder hacer análisis en otro LLM.
+05:06 PM
+Analiza si, en verdad, vale la pena tener node_modules,.gitignore, nbe, mrc, lsdk.json, package.json, package.json y tsconfig separados solo para la carpeta cdk, o es mejor tener una global para cdk y source.
+05:04 PM
+Busca en el código del proyecto si hay alguna información sensible que no debería subir a un repositorio de GitHub.
+05:02 PM
+No hagas esto de los comentarios para código que es generado por el CDK o por alguna herramienta automatizada. Solo para el código que yo debería escribir como desarrollador.
+04:58 PM
+¿Por qué existen estos dos archivos?
+04:22 PM
+Explícame para qué se supone que debo correr este comando.
+03:38 PM
+Entiende toda la aplicación. Ahora, quiero saber qué necesito y el paso a paso para llevar a que todo este proyecto pueda estar en una Lambda de AWS, utilizando el Cloud Development Kit de Amazon.
+03:00 PM
+Y supongamos que tienes un servicio que guarda y luego más adelante recupera el mismo usuario. ¿Cómo evitas este bug del que hablas, del que una instancia del usuario puede confundirse con otra instancia del mismo usuario?
+02:53 PM
+Aquí pregunta: ¿por qué retornas la instancia de User que entró y mejor no tomas la respuesta de la base de datos cruda y luego de eso haces un Mongo User Mapper to Domain con la respuesta de la base de datos?
+
+¿Por qué es mejor así? Retornar la instancia que entró y solo llamar a la base de datos como un efecto secundario, podríamos decir.
+02:44 PM
+O sea, que en arquitectura limpia, en clean architecture, nunca le dejas a Mongo generar su propio ID, sino que siempre se genera el ID desde la lógica del negocio.
+02:34 PM
+Explícame por qué tengo que primero instanciar un usuario y luego mandar una instancia de su usuario para guardar en el repositorio.
+
+¿Por qué no puedo guardar o mandar al repositorio los datos en JSON directo, que el repositorio adentro guarde esos datos en la base de datos y al recuperar me devuelva el usuario instanciado?
+
+O sea, explícame por qué se hace así
+02:33 PM
+Explícame por qué
+02:16 PM
+Si hubiese tenido resaltado solo la variable request, cuando presionaba el shortcut para arriba, debió haber dado el console.log que te estoy mostrando justo en la línea arriba de request, y de igual forma para él console.log para la línea de abajo del request, pero con otro keybinding.
+02:03 PM
+¿Cómo hago para configurar esta extensión? Para que me dé un shortcut que, cuando yo tenga señalado una variable y hago una cierta combinación de comandos, me haga un console.log abajo con el nombre de la variable y la variable. ¿O tengo otra configuración para hacer un console.log en la línea de arriba?
+01:41 PM
+¿Cómo se implementa una regla de negocio como ésta, "el usuario existe", a nivel de servicio en la capa de aplicación del dominio, o a nivel de entidad, igual en la capa de dominio
+01:21 PM
+¿Cuál es el formato de fechas y la zona horaria en las fechas que se usa en Big Tech, lo más usado? ¿Cuál es el estándar?
+01:19 PM
+O sea, aquí de lo que estoy entendiendo es que los servicios nunca van a interactuar con datos crudos que vienen desde la base de datos porque ahí ya se están metiendo en un dominio de infraestructura o van a tener conocimiento de la base de datos.
+
+Y eso es algo que no queremos porque es la capa de dominio acá para el negocio que no debería conocer datos de infraestructura, pero para interactuar con un dato (por ejemplo, con los datos de un usuario), nunca va a interactuar con el dato muerto puro, sino que siempre va a interactuar a través de una entidad user que fue cargado con los datos de la base de datos sí, pero para interactuar en la capa de servicios y en la capa de negocios, siempre se hace a través de una entidad.
+01:03 PM
+aquí déjame ver si te estoy entendiendo bien. Es incorrecto que una entidad como "user" tenga o conozca la base de datos, pero sí es correcto que el repositorio (y sobre todo utilizando al final para retornar este mapper) conozca la entidad.
+
+Es más, siempre que voy a consultar un dato en el repositorio para devolverlo al servicio, debería mapearlo o usar este mapper para transformar el dato crudo de la base de datos a una forma que es mi entidad.
+
+O sea, al servicio siempre voy a devolver ya los datos de la base de datos pero siempre pasados por una entidad.
+12:52 PM
+Así, a nivel general: ¿qué es la gramática?
+12:48 PM
+Para responder a esta pregunta, ¿ya existe este usuario? ¿Dónde es el lugar correcto? ¿Dentro del dominio en los servicios o dentro del dominio en la entidad usuario? Explícame el por qué de tu respuesta.
+12:39 PM
+Esto me causa confusión porque hay veces la sintaxis del lenguaje de programación, pero aquí, con sintaxis, ¿a qué te estás refiriendo?
+12:39 PM
+¿A qué te refieres con "intención", "sintaxis" y "estructura"? O sea, ¿qué es exactamente la "sintaxis"?
+12:35 PM
+en el sistema email se está validando en dos lados:
+
+
+
+En el UserController (al principio)
+
+
+En el UserService (al momento de crear un nuevo email)
+
+
+
+
+Explícame la diferencia entre estas dos validaciones y la intención de estas dos validaciones. ¿Puede ser redundante?
+
+Y más que todo, ayúdame a pensar dónde debo hacer mis validaciones, cuál es el lugar correcto o cuáles son las preguntas que debo hacerme para llegar a la respuesta correcta de dónde aplicar cada validación.
+
+Veo que la primera del UserController es una validación de formato, pero en el UserService ya sería una validación de una regla de negocio que vive dentro del Value Object New Email.
+
+O sea, en los Value Objects también puede haber reglas de negocio? Ayúdame a aclarar todas esas dudas
+12:30 PM
+en esta línea del registered user, new email, dice "Invariantes se validan aquí". Explícame qué es un invariante y por qué dices que se validan ahí
+12:21 PM
+Hola, a ver aquí explícame por qué el UserService no necesita ser declarado como una interfaz y se declara en el UserController su tipo, simplemente apunta directo a la clase
+11:05 AM
+y ahora, ayúdame a entender qué es una vista. O sea, no llego a internalizar el concepto, ayúdame a internalizar, a manejar el concepto con fluidez.
+10:54 AM
+¿Qué es un bus de mensajes? Cuando un desarrollador, un arquitecto de software, hablan acerca de bus de mensajes, ¿a qué se refieren?
+10:46 AM
+¿Por qué en el MongoUserRepository uso user, que es una entidad (que es una clase), en lugar de usar una interfaz para definir el tipo?
+10:41 AM
+Esto me parece súper interesante. ¿A qué te refieres con componer el grafo de dependencias de la aplicación en el archivo main.ts?
+10:23 AM
+sin código, me puedes dar un glosario estructurado de cada componente? Para entender para quién trabaja, en qué capa debería existir, cuál es su intención y cuál es su funcionalidad.
+10:22 AM
+hi
+10:22 AM
+¿Cuáles son los 20% de conocimientos más importantes que me ayudan a cubrir el 80% de los casos? O sea, ¿cuáles son los insights más importantes en arquitectura limpia que me puedo llevar?
+10:22 AM
+Además de la arquitectura limpia, ¿qué otros tipos de arquitectura existen? ¿Y cuál es la arquitectura que usan en Big Tech, en Silicon Valley?
+10:22 AM
+¿Cuáles son los errores más comunes que los principiantes cometen cuando quieren empezar a aplicar arquitecturas limpias
+10:15 AM
+¿Por qué tengo DTOs en la capa de infraestructura, pero también tengo DTOs en la capa de presentación?
+10:04 AM
+Un serializer parece un tipo de mapper. ¿Cuál es la diferencia entre un serializer y un mapper? Ayúdame a entender igual, porque los dos son clases, pero en arquitectura, ¿qué es lo importante? Más verdad de que sean una clase. ¿Qué es un serializer y un mapper? O sea, ¿cuál es la diferencia?
+09:32 AM
+Aquí, ayúdame a entender mejor. O sea, ¿a qué se refiere con un proceso? Y ¿a qué se refiere con lógica de negocios?
+
+También, ayúdame a entender en general qué es el uso de un DTO.
+05:14 AM
+en una aplicación API REST, ¿voy a tener solo un view para todos los controladores o puedo tener diferentes views, es decir, diferentes respuestas JSON dependiendo el controlador
+05:14 AM
+¿Qué es una API REST
+05:14 AM
+cuando un desarrollador de software habla acerca de serialización y respuesta,
+05:13 AM
+cuando un desarrollador de su orden
+05:13 AM
+¿Cuál es la funcionalidad o la responsabilidad de los serializers y la responsabilidad/funcionalidad de los BIOS
+05:12 AM
+Order Service, ¿no cierto? Por qué su tipo apunta directo a una clase y por qué no tiene una interfaz
+05:11 AM
+aquí, create order DTO. ¿Por qué necesito un create order DTO en estos archivos? O sea, ¿qué funcionalidad cumplen? ¿Por qué es necesaria
+05:11 AM
+¿Para qué sirven los serializers? ¿Para qué sirven los views
+05:10 AM
+¿Cuál es la funcionalidad? O más qué funcionalidad? O sea, ¿qué responsabilidad cumple VIEW? O sea, ¿qué es lo que está haciendo VIEW
+05:09 AM
+¿Por qué Order Service? Su tipo es Order Service y esto apunta directo a la clase y no tiene una interfaz
+05:09 AM
+¿Qué función cumple CreateOrderDto o por qué necesito un DTO en el controlador
+04:58 AM
+en este archivo, cuando las propiedades ORDERED_SERVICE o VIEW dicen "READ_ONLY", significan que solo pueden ser asignadas un valor al momento de instanciarse en el constructor, pero luego no pueden cambiarse
+04:57 AM
+¿En este archivo, el CreateDTO o CreateOrderDTO? ¿Qué funcionalidad tiene? ¿Qué objetivo cumple? ¿Por qué tengo que tener un CreateOrderDTO
+04:55 AM
+Lo pondría en una carpeta en la capa de infraestructura, en una carpeta separada que se encargue de los pdf-service o algo así.
+04:48 AM
+Solo tendríamos que cambiar el archivo main para ahora poder inyectar en el servicio el nuevo servicio externo de mail, y tendríamos que implementar la interfaz de email en la capa de infraestructura del nuevo email.
+04:15 AM
+Porque el serializer ya es el punto final antes de responder al usuario. Entonces, responder al usuario el password hash es información sensible. Y es buena idea quitarlo al final ya cuando se sabe que todos los procesos pasaron y ya no va a ser necesario. Entonces, al final en la respuesta del usuario, es bueno quitar los datos sensibles.
+04:00 AM
+Un serializer es como un mapper o es un tipo de mapper o son conceptos totalmente diferentes.
+03:25 AM
+Justo en la llamada al driver donde ya intenté enviar la orden para la base de datos.
+December 12, 2025
+08:35 PM
+ahora, ayúdame a estudiar a entender estos dos archivos SQL y MongoUserRepository. Veo que, igual que los otros archivos en la capa de infraestructura, sólo contienen lógica de infraestructura, son adaptadores para una base de datos Mongo y una base de datos SQL. Pero ayúdame a entenderlos más a profundidad
+08:24 PM
+Tenemos que crear una interfaz de un repositorio, y esa interfaz va a ser implementada por la capa de infraestructura en los repositorios.
+07:58 PM
+¿Por qué es un detalle de implementación al poner un driver específico de una base de datos específica en el dominio? Contaminaría mi dominio con detalles basura o que están fuera del dominio, que se salen de temas del negocio y más bien entran en detalles de implementación de una base de datos específica, cuando la idea es que en el dominio simplemente se trabaje contra una abstracción que no tiene detalles de implementación específicos.
+07:55 PM
+O sea, podría decir que un driver es esa librería que me permite conectarme con la base de datos o comunicarme con la base de datos.
+07:49 PM
+en este fragmento de código, cuando dices "driver de base de datos", ¿qué quieres decir con "driver"
+05:32 PM
+¿Qué me dices ahora de estos archivos que están en la sección de infraestructura en la parte de Q? Son igual, dos implementaciones de IQ Service que van a ser utilizados por la capa de aplicación por el dominio.
+
+Y bueno, ayúdame a entender más acerca de estos archivos y sobre todo de la arquitectura
+05:24 PM
+Háblame más de estos archivos. O sea, estos archivos todos están en la capa de infraestructura, en la parte del payment.
+
+¿Cómo podrían ser considerados como adaptadores de la infraestructura externa que adapta el IPaymentGateway Interface? Eso sí está en la capa de dominio. Ayúdame a entender mejor.
+05:24 PM
+Háblame.
+03:08 PM
+En mi código, solo tuviera que modificar el archivo main y no tendría que tocar el userService.
+02:58 PM
+En el archivo main, instanciar en main el objeto que quiero, el proveedor que quiero, y luego pasarlo al service.
+02:21 PM
+Háblame más acerca de los mappers. Quiero saber: ¿cuál es su utilidad? ¿Por qué se usan mappers? Y en general, ayúdame a comprender mejor este concepto de mappers
+12:40 PM
+Aquí me dicen: "actúa como un buffer", pero en realidad, ¿qué es un buffer?
+December 11, 2025
+09:29 PM
+De dos palabras clave que se
+07:59 AM
+Este tipo de pregunta, para verificar, explicando un problema de la vida real y luego preguntando qué se debería hacer, me parece algo excelente. Sigue haciendo más de este tipo en el futuro.
+07:45 AM
+Háblame más acerca de este Mongo User Mapper. O sea, es un servicio, pero no es un servicio exactamente, es un mapper. Me confundo con el servicio porque ambos: mapper y servicios son clases.
+
+Bueno, ayúdame a desconfundirme. O sea, ¿cuál es la diferencia entre un servicio y un mapper? Yo veo que ambos son clases, tienen métodos. Pero, sobre todo, ¿qué rol cumple y qué función cumple dentro de mi arquitectura?
+
+Háblame más acerca de este código
+07:41 AM
+aquí hay algo, una palabra complicada: "idiosincrasia de mongo". ¿Qué quieren decir con idiosincrasia de mongo
+07:25 AM
+Veo que mencionas Clean Architecture y arquitectura hexagonal. ¿Qué otras arquitecturas existen? Y ¿cuál es hoy la más usada en Big Tech?
+07:20 AM
+Todo lo que está dentro de la infraestructura puede ser llamado "adaptadores". O sea, ¿qué es exactamente un adaptador?
+07:20 AM
+Todo lo que está dentro de los adaptadores.
+December 10, 2025
+10:37 PM
+Sigo sin entender del todo, o sea, ¿qué son las operaciones? Explícamelo de otra forma.
+09:19 PM
+Ahora, ayúdame con esto:
+
+
+
+Evolvabilidad: facilitar cambios futuros
+
+
+Simplicidad: reducir la complejidad
+
+
+Operabilidad: facilitar las operaciones
+
+
+
+
+¿Qué quiere decir la operabilidad? O sea, ¿qué son las operaciones en una empresa? ¿De qué quiere hablar esto?
+09:09 PM
+Hello.
+09:09 PM
+Hi.
+09:08 PM
+Mira estos términos. Ayudo a profundizar más en la confiabilidad, o sea, mantenibilidad. Entiendo que habla de que el software es fácil de mantener.
+
+O sea, por lo que hemos venido estudiando, entiendo que es si el software está programado con interfaces y módulos, piezas que son intercambiables fácilmente.
+
+Escalabilidad, que puedo recibir una solicitud o mil solicitudes escalando eso y el sistema sigue teniendo el mismo rendimiento.
+
+Pero ¿qué quiere decir confiabilidad?
+09:04 PM
+¿Cuáles elementos o conceptos existen en el mundo real de una biblioteca?
+
+Fundamental lo que uno va a buscar en una biblioteca son los libros. Otra parte interesante de la biblioteca es el archivador, que puede localizar los libros (el índice).
+
+Otra parte interesante son los estantes. También hay una hoja donde se lleva el registro de los libros prestados del bibliotecario.
+
+2 reglas importantes deben seguirse en ese lugar, por ejemplo:
+
+
+
+¿Qué pasa si un libro se queda demasiado tiempo? Si alguien se queda con un libro demasiado tiempo, paga una multa.
+
+
+¿O si no? Los libros deberán ser organizados por temas (como ciencia, historia, filosofía).
+
+
+08:48 PM
+Ahora, a lo largo de los estudios, hemos visto mucho la palabra "dominio". Pero ¿qué es exactamente el dominio cuando el desarrollador habla de dominio? Quere decir que es el dominio dentro de una aplicación.
+08:32 PM
+Aquí continúo estudiando y veo que dice "dominio", el núcleo que contiene la lógica y reglas del negocio. Pero aquí, exactamente, cuando hablamos de software, ¿qué es la lógica?
+08:22 PM
+Ahora sigo estudiando y veo que dice arquitectura en capas, patrón que organiza el código en capas distintas, cada una con una responsabilidad específica.
+
+¿Qué quiere decir un patrón exactamente? ¿Qué es un patrón? Un texto desarrollado por el mundo y que habla de patrones.
+07:37 PM
+Cognitivo, concretamente la memoria de trabajo, la inteligencia fluida (que después explicaremos qué es), y la concentración. Normalmente se utiliza un
+07:37 PM
+el N-Back es una
+07:37 AM
+¿Cuáles son las preguntas fundamentales que deben hacerse los desarrolladores de software para aprender más acerca de DTOs?
+
+Es lo más fundamental, lo que primero deberían preguntarse.
+07:37 AM
+el UserPersistenceDTO tiene que seguir la estructura tal cual está en la base de datos. Entonces, sería ISVIP y un string, porque antes ponían una S string o una N string.
+07:16 AM
+Ayúdame a entender así por qué se usa un DTO. ¿Qué sirve? Y, por qué molestarse en construir un DTO?
+
+Es solo como una interfaz o un contrato que me ayuda a saber qué estructura tienen los datos del Mongo, pero además de eso, tiene algún otro utilidad.
+December 9, 2025
+11:52 PM
+Ayúdame a entender más de esta capa de infraestructura en mi código (infraestructura y porque dice de plus los conectores). Los conectores que se conectan (en donde? A los servicios que viven en la capa de servicios como user service y order service). Porque dice external tools. Ayúdame a entender más de este concepto, cómo está en mi código representado.
+11:52 PM
+Voy a hacerte preguntas sobre este código.
+11:27 PM
+Hay muchas personas que hablan acerca de arquitectura de software, pero ¿qué precisamente es la arquitectura de software? ¿No es como la arquitectura de edificios? ¿Qué precisamente es un arquitecto de software? Y ¿dónde se estudia eso? ¿Dónde se aprende?
+01:00 AM
+Creo que esta regla debería ser una invariante en la entidad de usuario en la capa de dominio.
+12:56 AM
+O sea, estoy tratando de entender el concepto de capas a profundidad. Una capa de software dice "particiona el software". Es como que divide el software en partes, pero exactamente ¿cómo lo puedo ver eso en mi código? Cada una con un rol y responsabilidades específicas.
+
+Mira, ¿sabes? Que cuando programo, cómo podría ser más fácil para mí poder identificar cada capa, o ayudarme a que cuando programo, poder resolver no es cierto, el problema de que tengo un nuevo código, este código, dónde va en qué capa, o cuando estoy haciendo un proyecto, ¿cómo distribuyo mis capas?
+12:39 AM
+Clean Architecture
+12:38 AM
+Hold down F.G. and cry, "I want to pick up a few things from the store:
+
+
+
+Bread for sandwich
+
+
+Potato chips
+
+
+Vanilla ice cream
+
+
+"
+12:37 AM
+Hold down Fn key and try saying: Hi Greg,
+
+How are you doing? Let's meet on Friday at 9:00.
+
+Thanks,
+Andrés
+12:37 AM
+Hola, ¿cómo estás?
