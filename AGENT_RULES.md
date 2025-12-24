@@ -73,20 +73,17 @@ Cada sección enseña UNA sola cosa.
 Si necesitas decir "y también..." → es otra sección.
 ```
 
-### 2. Ejemplos mínimos
-Código debe mostrar SOLO el concepto. Si necesitas más de 5 líneas → simplifica.
-
-### 3. Vocabulario controlado
+### 2. Vocabulario controlado
 | Regla | Ejemplo |
 |-------|---------|
 | Máximo **2-3 términos nuevos** por lección | "Hoy: `flatMap` y `Option`" |
 | Definir términos **inmediatamente** | "Option (también llamado Maybe)..." |
 | Usar terminología **consistente** | Elegir "Option" o "Maybe", no ambos |
 
-### 4. Espaciado visual
+### 3. Espaciado visual
 Dejar espacio entre conceptos. No paredes de texto.
 
-### 5. Indicadores de profundidad
+### 4. Indicadores de profundidad
 Marcar contenido para que el estudiante sepa qué priorizar:
 
 | Icono | Significado | Acción del estudiante |
@@ -95,7 +92,7 @@ Marcar contenido para que el estudiante sepa qué priorizar:
 | 🟡 | **Importante** | Útil pero no crítico ahora |
 | 🔵 | **Avanzado** | Puedes saltar y volver después |
 
-### 6. Checklist "Ojos Frescos"
+### 5. Checklist "Ojos Frescos"
 Antes de finalizar una lección, verificar:
 
 - [ ] ¿Alguien sin contexto entendería esto en 30 segundos?
