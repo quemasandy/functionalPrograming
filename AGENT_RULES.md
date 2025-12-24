@@ -74,19 +74,7 @@ Si necesitas decir "y también..." → es otra sección.
 ```
 
 ### 2. Ejemplos mínimos
-El código debe mostrar SOLO el concepto, sin ruido adicional:
-
-```typescript
-// ❌ MAL: Demasiado ruido, distrae del concepto
-const processUserPaymentWithValidationAndLogging = (user: User) => {
-  const validated = validateUser(user);
-  logger.info(`Processing ${user.id}`);
-  return validated.flatMap(u => chargeCard(u.paymentMethod));
-}
-
-// ✅ BIEN: Solo el concepto (flatMap)
-const result = option.flatMap(x => transform(x));
-```
+Código debe mostrar SOLO el concepto. Si necesitas más de 5 líneas → simplifica.
 
 ### 3. Vocabulario controlado
 | Regla | Ejemplo |
@@ -95,14 +83,8 @@ const result = option.flatMap(x => transform(x));
 | Definir términos **inmediatamente** | "Option (también llamado Maybe)..." |
 | Usar terminología **consistente** | Elegir "Option" o "Maybe", no ambos |
 
-### 4. Espaciado visual (breathing room)
-```markdown
-Primera idea...
-
-            ← espacio para procesar
-
-Segunda idea...
-```
+### 4. Espaciado visual
+Dejar espacio entre conceptos. No paredes de texto.
 
 ### 5. Indicadores de profundidad
 Marcar contenido para que el estudiante sepa qué priorizar:
@@ -205,7 +187,7 @@ Antes de continuar, responde mentalmente:
 
 ---
 
-## � ANÁLISIS AVANZADO (cuando aplique)
+## 🔬 ANÁLISIS AVANZADO (cuando aplique)
 
 Incluir estas secciones **solo cuando el tema lo amerite** (no en lecciones básicas):
 
@@ -251,7 +233,7 @@ Para algoritmos y estructuras de datos:
 
 > 💡 **Regla**: Incluir análisis avanzado cuando el concepto involucre decisiones de diseño significativas, no en lecciones de fundamentos básicos.
 
-## �💻 REGLAS DE CÓDIGO
+## 💻 REGLAS DE CÓDIGO
 
 ### TypeScript (Lenguaje Principal)
 
@@ -270,10 +252,6 @@ as Type                           // Type assertions sin validación
 // @ts-ignore                     // Jamás
 ```
 
-**Runtime**: Node.js (última LTS)  
-**Imports**: ESM (`import`/`export`)  
-**Implementación**: From scratch primero, luego mostrar equivalente con fp-ts/Effect
-
 ### Scala 3
 
 ```scala
@@ -291,9 +269,6 @@ null                              // Usar Option
 return                            // Implícito siempre
 throw                             // Usar Either/Try
 ```
-
-**Versión**: Scala 3.x (última estable)  
-**Formato**: Archivos Scala estándar (`.scala`) con método `@main`
 
 ---
 
@@ -330,36 +305,13 @@ throw                             // Usar Either/Try
 
 ## ✏️ REGLAS DE COMENTARIOS
 
-### ❌ NO Comentar lo Obvio
-```typescript
-// MAL:
-const x = 1; // asigna 1 a x
-user.name    // obtiene el nombre del usuario
-```
-
-### ✅ SÍ Comentar el POR QUÉ
-```typescript
-// BIEN:
-readonly balance: number; 
-// ^ 'readonly' fuerza inmutabilidad en TS - Scala lo hace por defecto con 'val'
-
-private constructor() {}
-// ^ Constructor privado fuerza uso de factory methods - patrón Smart Constructor
-```
-
-### ✅ SÍ Explicar Flujo de Datos
-```typescript
-// BIEN:
-return payment
-  .validate()           // Paso 1: Valida formato y reglas de negocio
-  .map(enrichWithFees)  // Paso 2: Agrega comisiones (solo si válido)
-  .flatMap(checkFunds)  // Paso 3: Verifica fondos (puede fallar → None)
-  .map(execute);        // Paso 4: Ejecuta solo si todo anterior OK
-```
+- ❌ NO comentar lo obvio (`const x = 1; // asigna 1 a x`)
+- ✅ SÍ comentar el POR QUÉ (`readonly` fuerza inmutabilidad)
+- ✅ SÍ explicar flujo de datos en pipes/chains
 
 ---
 
-## � DOMINIOS Y EJEMPLOS VARIADOS
+## 🌍 DOMINIOS Y EJEMPLOS VARIADOS
 
 ### Filosofía: Ampliar horizontes, no encasillarse
 
@@ -415,286 +367,13 @@ const priceInCents: number = 1999;     // Aritmética exacta
 
 ## 🎓 NIVELES DE DIFICULTAD
 
-```
-Nivel 01-10:  🌱 Fundamentos
-              - Funciones puras vs impuras
-              - Inmutabilidad
-              - Higher-order functions
-              - map/filter/reduce
-
-Nivel 11-20:  🌿 Intermedio
-              - Option/Maybe
-              - Either/Result
-              - Recursión y tail recursion
-              - Pattern matching
-
-Nivel 21-30:  🌳 Avanzado
-              - Functors
-              - Monads
-              - Applicative
-              - Traverse/Sequence
-
-Nivel 31-40:  🏔️ Experto
-              - Effect systems
-              - Parser combinators
-              - Free monads
-              - Trampolining
-
-Nivel 41+:    🚀 Maestría
-              - Category theory aplicada
-              - Type-level programming
-              - Optimización avanzada
-```
-
----
-
-## 🏢 CASOS DE ESTUDIO BIG TECH (Referencia opcional)
-
-> 💡 **Uso**: Mencionar solo cuando refuerce un concepto específico. No es obligatorio incluir en cada lección.
-
-<details>
-<summary>Ver empresas y su uso de FP</summary>
-
-| Empresa | Uso de FP |
-|---------|-----------|
-| **Stripe** | Inmutabilidad en ledgers, idempotencia |
-| **Square** | Event sourcing para auditoría |
-| **Jane Street** | OCaml para trading de baja latencia |
-| **Bloomberg** | Haskell para cálculos financieros |
-| **Twitter** | Scala para servicios de alta concurrencia |
-| **Netflix** | RxJava/funcional reactivo |
-| **Klarna** | Erlang/Elixir para pagos |
-| **Shopify** | Ruby funcional para e-commerce |
-| **Discord** | Elixir para chat en tiempo real |
-| **WhatsApp** | Erlang para mensajería masiva |
-
-</details>
-
----
-
-## � ANTES DE CREAR UN NUEVO TUTORIAL
-
-**OBLIGATORIO**: Antes de crear cualquier tutorial o lección nueva, seguir este flujo:
-
-### Paso 1: Verificar si el tema ya existe
-
-```bash
-# Buscar en el currículo actual
-find src/01-fundamentals/01-exercises -type d -name "*" | head -20
-grep -ri "[nombre-del-tema]" src/01-fundamentals/01-exercises/
-```
-
-### Paso 2: Decisión basada en resultados
-
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│  ¿El tema ya existe?                                                    │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  NO EXISTE                    │  YA EXISTE                             │
-│  ─────────────                │  ──────────                            │
-│  ✅ Crear nueva carpeta       │  Evaluar:                              │
-│     con lesson.ts/scala       │                                        │
-│                               │  1. ¿El contenido existente es         │
-│                               │     suficiente?                        │
-│                               │     → Informar al usuario que ya       │
-│                               │       existe y no es necesario         │
-│                               │                                        │
-│                               │  2. ¿Falta algo importante?            │
-│                               │     → Proponer MODIFICAR el archivo    │
-│                               │       existente, no crear uno nuevo    │
-│                               │                                        │
-│                               │  3. ¿Es un enfoque diferente?          │
-│                               │     → Discutir con el usuario si       │
-│                               │       vale la pena duplicar            │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
-```
-
-### Paso 3: Comunicar al usuario
-
-**Si el tema YA EXISTE**, responder con:
-
-```markdown
-📋 **Tema encontrado**: Este concepto ya está cubierto en:
-- `src/01-fundamentals/01-exercises/XX-nombre/lesson.ts`
-
-**Opciones:**
-1. ✏️ Puedo **modificar** la lección existente para agregar [contenido nuevo]
-2. 📖 Puedo mostrarte el contenido actual para que lo revises
-3. 🆕 Si prefieres un enfoque diferente, podemos discutirlo
-
-¿Qué prefieres?
-```
-
-**Si el tema NO EXISTE**, proceder normalmente con la creación.
-
-### Temas del currículo actual (16 lecciones consolidadas)
-
-| # | Carpeta | Cubre |
-|---|---------|-------|
-| 01 | `01-pure-functions` | Funciones puras vs impuras, side effects |
-| 02 | `02-immutability` | Datos inmutables, readonly, spread operator |
-| 03 | `03-higher-order-functions` | map, filter, reduce, HOFs |
-| 04 | `04-composition` | compose, pipe, andThen |
-| 05 | `05-error-handling` | Option, Either, error as data |
-| 06 | `06-recursion-and-folds` | Recursión, fold, reduce |
-| 07 | `07-functors` | Functor, map, leyes |
-| 08 | `08-monads` | Monad, flatMap, for-comprehension |
-| 09 | `09-applicative` | Applicative, ap, map2, validación |
-| 10 | `10-traverse-sequence` | traverse, sequence, invertir efectos |
-| 11 | `11-state-monad` | State[S, A], estado funcional |
-| 12 | `12-lazy-evaluation` | LazyList, evaluación diferida |
-| 13 | `13-stack-safety` | Trampolining, tail recursion |
-| 14 | `14-parser-combinators` | Parsers, combinadores |
-| 15 | `15-property-based-testing` | Propiedades, generadores, shrinking |
-| 16 | `16-functional-architecture` | Functional core, imperative shell |
-
-> ⚠️ **Evitar duplicación**: Si el usuario pide un tema que ya está en esta tabla, verificar primero el contenido existente.
----
-
-## 📏 LÍMITES DE TAMAÑO Y ANTI-DUPLICACIÓN
-
-### Regla del archivo
-```
-Máximo recomendado: ~300-400 líneas por lesson.ts o lesson.scala
-```
-
-Si supera este límite → dividir en partes:
-```
-XX-tema-complejo/
-├── 01-fundamentos.ts      # Parte 1: Lo básico
-├── 01-fundamentos.scala
-├── 02-avanzado.ts         # Parte 2: Casos avanzados
-├── 02-avanzado.scala
-└── exercises.ts           # Ejercicios adicionales (opcional)
-```
-
-### Regla del concepto único
-- **UN concepto principal** por lección
-- Conceptos secundarios → mencionar brevemente y **referenciar** la lección correspondiente
-
-### Regla de ejemplos
-| Tipo | Cantidad máxima |
-|------|-----------------|
-| Ejemplos por concepto | 3 (básico, intermedio, financiero) |
-| Ejercicios por lección | 2-3 |
-| Líneas de código por ejemplo | ~20-30 |
-
-### Evitar re-explicaciones
-
-**❌ NO hacer esto:**
-```typescript
-// Primero, recordemos qué es Option...
-// Option es un contenedor que puede tener un valor o estar vacío...
-// [50 líneas explicando Option]
-```
-
-**✅ SÍ hacer esto:**
-```typescript
-// Usamos Option para manejar valores opcionales
-// (Ver lección 05-error-handling para detalles)
-```
-
-### Referencias entre lecciones
-
-Cuando necesites un concepto de otra lección:
-
-| Si necesitas... | Referencia a... |
-|-----------------|-----------------|
-| Option/Either | `05-error-handling` |
-| map | `07-functors` |
-| flatMap | `08-monads` |
-| compose/pipe | `04-composition` |
-| fold/reduce | `06-recursion-and-folds` |
-
----
-
-## �📁 GENERACIÓN DE ARCHIVOS
-
-### Ejercicio Simple (1 concepto)
-```
-src/01-fundamentals/01-exercises/XX-nombre-concepto/
-├── concepto.ts              # Implementación TypeScript
-└── concepto.scala           # Scala (Ejecutable con scala-cli)
-```
-
-### Tema Complejo (múltiples archivos necesarios)
-```
-src/01-fundamentals/01-exercises/XX-nombre-complejo/
-├── README.md                    # Explicación del tema
-├── 01-problema.ts               # Paso 1
-├── 01-problema.scala            # Paso 1 (Scala)
-├── 02-solucion.ts               # Paso 2
-├── 02-solucion.scala            # Paso 2 (Scala)
-└── ...
-```
-
-> 💡 **Nota**: Usamos archivos `.scala` normales. Para ejecutarlos:
-> `./scala-cli-wrapper run ruta/al/archivo.scala`
-
----
-
-## ⛔ RESTRICCIONES ABSOLUTAS
-
-1. ~~**NUNCA** modificar `src/fpinscala-second-edition/`~~ - Ahora **SÍ puedes modificar** esta carpeta
-2. **NUNCA** usar `any` en TypeScript
-3. **NUNCA** usar `var` en Scala sin justificación explícita
-4. **NUNCA** usar `null` - usar Option/Maybe
-5. **NUNCA** usar floats para dinero
-6. **NUNCA** crear tests unitarios a menos que se soliciten
-7. **SIEMPRE** crear versión TypeScript Y Scala (TS es principal, Scala usa `.scala`)
-8. **SIEMPRE** mostrar antipatrón antes del patrón correcto
-9. **SIEMPRE** explicar implicaciones en sistemas críticos cuando aplique
-10. **SIEMPRE** comentar el flujo de datos, no lo obvio
-
----
-
-## 🧪 PLANTILLA DE RETO
-
-Cada lección termina con un reto práctico:
-
-```markdown
-## 🧪 Tu Turno: Refactoriza Este Código
-
-El siguiente código tiene problemas. Identifícalos y refactoriza a estilo funcional:
-
-\`\`\`typescript
-// Código imperativo "sucio" aquí
-\`\`\`
-
-**Pistas:**
-1. [Pista 1]
-2. [Pista 2]
-
-<details>
-<summary>💡 Ver solución</summary>
-
-\`\`\`typescript
-// Solución funcional con explicación
-\`\`\`
-
-**¿Por qué es mejor?**
-- [Razón 1]
-- [Razón 2]
-
-</details>
-```
-
----
-
-## 🔑 RESUMEN EJECUTIVO
-
-```
-LENGUAJE PRINCIPAL:     TypeScript (Node.js)
-LENGUAJE SECUNDARIO:    Scala 3 (.scala CLI)
-REFERENCIA:             FP in Scala 2nd Ed (modificable)
-DURACIÓN POR LECCIÓN:   ~15 minutos
-DOMINIO:                Sistemas financieros/críticos
-
-SIEMPRE:  Antipatrón → Patrón | TS + Scala | Comentar flujo de datos
-NUNCA:    any | var sin razón | floats para dinero
-```
+| Nivel | Contenido |
+|-------|-----------|
+| 01-10 🌱 | Puras, inmutabilidad, HOFs, map/filter/reduce |
+| 11-20 🌿 | Option/Either, recursión, pattern matching |
+| 21-30 🌳 | Functors, Monads, Applicative, Traverse |
+| 31-40 🏔️ | Effects, parsers, trampolining |
+| 41+ 🚀 | Category theory, type-level programming |
 
 ---
 

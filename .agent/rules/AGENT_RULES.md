@@ -60,12 +60,53 @@ src/
 ```
 Carpetas:  XX-nombre-en-kebab-case/    (ej: 01-pure-vs-impure/)
 Archivos:  nombre-descriptivo.ts            (ej: pure-functions.ts)
-           nombre-descriptivo.worksheet.sc  (ej: pure-functions.worksheet.sc)
+           nombre-descriptivo.scala         (ej: pure-functions.scala)
 ```
 
 
 > ⚠️ **Scala Files**: Usar extensión `.scala` con métodos `@main` o `object ... extends App`.
 > Los worksheets han sido deprecados por problemas de rendimiento.
+
+---
+
+## 🧠 PREVENCIÓN DE SOBRECARGA COGNITIVA
+
+### 1. Regla del "One Thing"
+```
+Cada sección enseña UNA sola cosa.
+Si necesitas decir "y también..." → es otra sección.
+```
+
+### 2. Ejemplos mínimos
+Código debe mostrar SOLO el concepto. Si necesitas más de 5 líneas → simplifica.
+
+### 3. Vocabulario controlado
+| Regla | Ejemplo |
+|-------|---------|
+| Máximo **2-3 términos nuevos** por lección | "Hoy: `flatMap` y `Option`" |
+| Definir términos **inmediatamente** | "Option (también llamado Maybe)..." |
+| Usar terminología **consistente** | Elegir "Option" o "Maybe", no ambos |
+
+### 4. Espaciado visual
+Dejar espacio entre conceptos. No paredes de texto.
+
+### 5. Indicadores de profundidad
+Marcar contenido para que el estudiante sepa qué priorizar:
+
+| Icono | Significado | Acción del estudiante |
+|-------|-------------|----------------------|
+| 🟢 | **Esencial** | Debes entender esto |
+| 🟡 | **Importante** | Útil pero no crítico ahora |
+| 🔵 | **Avanzado** | Puedes saltar y volver después |
+
+### 6. Checklist "Ojos Frescos"
+Antes de finalizar una lección, verificar:
+
+- [ ] ¿Alguien sin contexto entendería esto en 30 segundos?
+- [ ] ¿Hay más de UN concepto nuevo por sección?
+- [ ] ¿Los ejemplos tienen código innecesario?
+- [ ] ¿Hay términos sin definir?
+- [ ] ¿Hay paredes de texto sin breaks visuales?
 
 ---
 
@@ -80,14 +121,30 @@ Cada ejercicio DEBE seguir esta estructura:
 ```markdown
 ## 🎯 [Nombre del Concepto]
 
+### 📋 Objetivos de aprendizaje
+Al terminar esta lección podrás:
+- [ ] [Objetivo 1: identificar/reconocer algo]
+- [ ] [Objetivo 2: implementar/aplicar algo]
+- [ ] [Objetivo 3: evitar/detectar el antipatrón]
+
+### 📚 Prerrequisitos
+- [Lección XX: Concepto necesario]
+
+---
+
 ### ¿Qué problema resuelve?
 [1-2 párrafos: el pain point en desarrollo de software]
 
 ### Analogía del mundo real
 [Metáfora memorable y concreta]
 
-### En sistemas financieros/críticos
-[Por qué es crucial - ejemplo de fallo real si no se aplica]
+### 📊 Diagrama conceptual
+[ASCII art que visualice el concepto]
+```
+┌─────────┐    operación    ┌─────────┐
+│ Input   │ ──────────────► │ Output  │
+└─────────┘                 └─────────┘
+```
 
 ---
 
@@ -103,9 +160,27 @@ Cada ejercicio DEBE seguir esta estructura:
 
 ---
 
+## ⚠️ Errores Comunes
+
+| Error | Por qué ocurre | Cómo evitarlo |
+|-------|---------------|---------------|
+| [Error 1] | [Causa] | [Solución] |
+| [Error 2] | [Causa] | [Solución] |
+
+---
+
 ## 🔄 TypeScript vs Scala
 
 [Tabla comparativa + explicación de diferencias]
+
+---
+
+## 🧠 Checkpoint de Comprensión
+
+Antes de continuar, responde mentalmente:
+1. ¿Cuál es la diferencia clave entre [X] e [Y]?
+2. ¿Por qué usamos [patrón] en vez de [antipatrón]?
+3. ¿En qué situación NO usarías este patrón?
 
 ---
 
@@ -115,6 +190,52 @@ Cada ejercicio DEBE seguir esta estructura:
 ```
 
 ---
+
+## 🔬 ANÁLISIS AVANZADO (cuando aplique)
+
+Incluir estas secciones **solo cuando el tema lo amerite** (no en lecciones básicas):
+
+### 1. ⚖️ Trade-off Analysis
+
+Cuando existan múltiples enfoques válidos, documentar:
+
+```markdown
+## ⚖️ Trade-offs
+
+| Enfoque | Pros | Contras | Cuándo usar |
+|---------|------|---------|-------------|
+| A       | ...  | ...     | ...         |
+| B       | ...  | ...     | ...         |
+
+**Recomendación**: [Cuál elegir en la mayoría de casos y por qué]
+```
+
+### 2. 🏛️ Architecture Review
+
+Para patrones arquitectónicos, evaluar:
+
+| Dimensión | Qué evaluar |
+|-----------|-------------|
+| **Escalabilidad** | ¿Cómo se comporta con 10x, 100x carga? |
+| **Mantenibilidad** | ¿Es fácil de modificar y depurar? |
+| **Disponibilidad** | ¿Tiene single points of failure? |
+| **Consistencia** | ¿Garantiza integridad de datos? |
+
+### 3. 📊 Complejidad Computacional
+
+Para algoritmos y estructuras de datos:
+
+```markdown
+## 📊 Análisis de Complejidad
+
+| Operación | Tiempo | Espacio | Notas |
+|-----------|--------|---------|-------|
+| insert    | O(1)   | O(1)    | Amortizado |
+| lookup    | O(n)   | O(1)    | Peor caso |
+| ...       | ...    | ...     | ... |
+```
+
+> 💡 **Regla**: Incluir análisis avanzado cuando el concepto involucre decisiones de diseño significativas, no en lecciones de fundamentos básicos.
 
 ## 💻 REGLAS DE CÓDIGO
 
@@ -135,10 +256,6 @@ as Type                           // Type assertions sin validación
 // @ts-ignore                     // Jamás
 ```
 
-**Runtime**: Node.js (última LTS)  
-**Imports**: ESM (`import`/`export`)  
-**Implementación**: From scratch primero, luego mostrar equivalente con fp-ts/Effect
-
 ### Scala 3
 
 ```scala
@@ -156,9 +273,6 @@ null                              // Usar Option
 return                            // Implícito siempre
 throw                             // Usar Either/Try
 ```
-
-**Versión**: Scala 3.x (última estable)  
-**Formato**: Scala Worksheets (`.worksheet.sc`) para evaluación interactiva con Metals
 
 ---
 
@@ -195,58 +309,61 @@ throw                             // Usar Either/Try
 
 ## ✏️ REGLAS DE COMENTARIOS
 
-### ❌ NO Comentar lo Obvio
-```typescript
-// MAL:
-const x = 1; // asigna 1 a x
-user.name    // obtiene el nombre del usuario
-```
-
-### ✅ SÍ Comentar el POR QUÉ
-```typescript
-// BIEN:
-readonly balance: number; 
-// ^ 'readonly' fuerza inmutabilidad en TS - Scala lo hace por defecto con 'val'
-
-private constructor() {}
-// ^ Constructor privado fuerza uso de factory methods - patrón Smart Constructor
-```
-
-### ✅ SÍ Explicar Flujo de Datos
-```typescript
-// BIEN:
-return payment
-  .validate()           // Paso 1: Valida formato y reglas de negocio
-  .map(enrichWithFees)  // Paso 2: Agrega comisiones (solo si válido)
-  .flatMap(checkFunds)  // Paso 3: Verifica fondos (puede fallar → None)
-  .map(execute);        // Paso 4: Ejecuta solo si todo anterior OK
-```
+- ❌ NO comentar lo obvio (`const x = 1; // asigna 1 a x`)
+- ✅ SÍ comentar el POR QUÉ (`readonly` fuerza inmutabilidad)
+- ✅ SÍ explicar flujo de datos en pipes/chains
 
 ---
 
-## 🏦 DOMINIO: SISTEMAS FINANCIEROS
+## 🌍 DOMINIOS Y EJEMPLOS VARIADOS
 
-Cuando el ejercicio involucre billing/payments, incluir estos aspectos:
+### Filosofía: Ampliar horizontes, no encasillarse
 
-| Concepto | Ejemplo Práctico |
-|----------|------------------|
-| **Idempotencia** | Evitar cobros duplicados con idempotency keys |
-| **Precisión decimal** | `BigDecimal` / `Decimal.js`, NUNCA `float` para dinero |
-| **Inmutabilidad** | Ledgers append-only, nunca modificar transacciones |
-| **Auditoría** | Event sourcing, logs inmutables |
-| **Concurrencia** | Race conditions en balances |
-| **Validación** | Tipos algebraicos para estados válidos |
-| **Idempotency keys** | UUID para operaciones únicas |
+Los ejemplos deben mostrar la **versatilidad** de FP en múltiples industrias, no solo fintech.
 
-### Montos de Dinero - Regla de Oro
+### Estructura de ejemplos por concepto
+
+Para cada concepto, incluir **3 ejemplos de dominios diferentes**:
+
+```
+1. 📦 Ejemplo genérico/abstracto   → Listas, strings, números (para entender la mecánica)
+2. 🌍 Ejemplo de otra industria    → Rotar entre dominios variados
+3. 🏦 Ejemplo financiero/crítico   → Pagos, transacciones, auditoría
+```
+
+### Dominios a rotar
+
+| Emoji | Industria | Ejemplos de uso |
+|-------|-----------|-----------------|
+| 🎮 | **Gaming** | Inventarios, NPCs, física, estados de juego, puntuaciones |
+| 🛒 | **E-commerce** | Carritos, catálogos, reviews, descuentos, recomendaciones |
+| 🏥 | **Healthcare** | Historiales médicos, citas, diagnósticos, recetas |
+| 🚗 | **IoT/Automotive** | Sensores, telemetría, estados de vehículos, alertas |
+| 📱 | **Social Media** | Feeds, notificaciones, mensajes, moderación de contenido |
+| 🤖 | **AI/ML Pipelines** | Transformaciones de datos, validaciones, feature engineering |
+| 📚 | **Educación** | Cursos, progreso, calificaciones, certificaciones |
+| 🏦 | **Fintech** | Pagos, ledgers, transacciones, compliance |
+
+### Cuándo enfatizar fintech
+
+Los ejemplos financieros son **obligatorios** cuando el concepto tiene implicaciones críticas:
+
+| Concepto | Por qué fintech es esencial |
+|----------|----------------------------|
+| Idempotencia | Evitar cobros duplicados |
+| Precisión decimal | `0.1 + 0.2 !== 0.3` es fatal en dinero |
+| Inmutabilidad | Ledgers append-only, auditoría |
+| Concurrencia | Race conditions en balances |
+| Validación | Estados inválidos = pérdida de dinero |
+
+### Regla de oro para dinero
+
 ```typescript
-// ⛔ NUNCA
+// ⛔ NUNCA usar floats para dinero
 const price: number = 19.99;           // Floats pierden precisión
-const total = price * quantity;        // 0.1 + 0.2 !== 0.3
 
-// ✅ SIEMPRE
-const priceInCents: number = 1999;     // Enteros en la menor unidad
-const total = priceInCents * quantity; // Aritmética exacta
+// ✅ SIEMPRE usar enteros en la menor unidad
+const priceInCents: number = 1999;     // Aritmética exacta
 // O usar librerías: Decimal.js, dinero.js, BigInt
 ```
 
@@ -254,140 +371,13 @@ const total = priceInCents * quantity; // Aritmética exacta
 
 ## 🎓 NIVELES DE DIFICULTAD
 
-```
-Nivel 01-10:  🌱 Fundamentos
-              - Funciones puras vs impuras
-              - Inmutabilidad
-              - Higher-order functions
-              - map/filter/reduce
-
-Nivel 11-20:  🌿 Intermedio
-              - Option/Maybe
-              - Either/Result
-              - Recursión y tail recursion
-              - Pattern matching
-
-Nivel 21-30:  🌳 Avanzado
-              - Functors
-              - Monads
-              - Applicative
-              - Traverse/Sequence
-
-Nivel 31-40:  🏔️ Experto
-              - Effect systems
-              - Parser combinators
-              - Free monads
-              - Trampolining
-
-Nivel 41+:    🚀 Maestría
-              - Category theory aplicada
-              - Type-level programming
-              - Optimización avanzada
-```
-
----
-
-## 🏢 CASOS DE ESTUDIO BIG TECH
-
-Cuando sea relevante, incluir ejemplos reales de:
-
-| Empresa | Uso de FP |
-|---------|-----------|
-| **Stripe** | Inmutabilidad en ledgers, idempotencia |
-| **Square** | Event sourcing para auditoría |
-| **Jane Street** | OCaml para trading de baja latencia |
-| **Bloomberg** | Haskell para cálculos financieros |
-| **Twitter** | Scala para servicios de alta concurrencia |
-| **Netflix** | RxJava/funcional reactivo |
-| **Klarna** | Erlang/Elixir para pagos |
-
----
-
-## 📁 GENERACIÓN DE ARCHIVOS
-
-### Ejercicio Simple (1 concepto)
-```
-src/01-fundamentals/01-exercises/XX-nombre-concepto/
-├── concepto.ts              # Implementación TypeScript
-└── concepto.scala           # Scala (Ejecutable con scala-cli)
-```
-
-### Tema Complejo (múltiples archivos necesarios)
-```
-src/01-fundamentals/01-exercises/XX-nombre-complejo/
-├── README.md                    # Explicación del tema
-├── 01-problema.ts               # Paso 1
-├── 01-problema.worksheet.sc     # Scala Worksheet
-├── 02-solucion.ts               # Paso 2
-├── 02-solucion.worksheet.sc     # Scala Worksheet
-└── ...
-```
-
-> 💡 **Nota**: Usamos archivos `.scala` normales. Para ejecutarlos:
-> `./scala-cli-wrapper run ruta/al/archivo.scala`
-
----
-
-## ⛔ RESTRICCIONES ABSOLUTAS
-
-1. ~~**NUNCA** modificar `src/fpinscala-second-edition/`~~ - Ahora **SÍ puedes modificar** esta carpeta
-2. **NUNCA** usar `any` en TypeScript
-3. **NUNCA** usar `var` en Scala sin justificación explícita
-4. **NUNCA** usar `null` - usar Option/Maybe
-5. **NUNCA** usar floats para dinero
-6. **NUNCA** crear tests unitarios a menos que se soliciten
-7. **SIEMPRE** crear versión TypeScript Y Scala (TS es principal, Scala usa `.scala`)
-8. **SIEMPRE** mostrar antipatrón antes del patrón correcto
-9. **SIEMPRE** explicar implicaciones en sistemas críticos cuando aplique
-10. **SIEMPRE** comentar el flujo de datos, no lo obvio
-
----
-
-## 🧪 PLANTILLA DE RETO
-
-Cada lección termina con un reto práctico:
-
-```markdown
-## 🧪 Tu Turno: Refactoriza Este Código
-
-El siguiente código tiene problemas. Identifícalos y refactoriza a estilo funcional:
-
-\`\`\`typescript
-// Código imperativo "sucio" aquí
-\`\`\`
-
-**Pistas:**
-1. [Pista 1]
-2. [Pista 2]
-
-<details>
-<summary>💡 Ver solución</summary>
-
-\`\`\`typescript
-// Solución funcional con explicación
-\`\`\`
-
-**¿Por qué es mejor?**
-- [Razón 1]
-- [Razón 2]
-
-</details>
-```
-
----
-
-## 🔑 RESUMEN EJECUTIVO
-
-```
-LENGUAJE PRINCIPAL:     TypeScript (Node.js)
-LENGUAJE SECUNDARIO:    Scala 3 (.scala CLI)
-REFERENCIA:             FP in Scala 2nd Ed (modificable)
-DURACIÓN POR LECCIÓN:   ~15 minutos
-DOMINIO:                Sistemas financieros/críticos
-
-SIEMPRE:  Antipatrón → Patrón | TS + Scala | Comentar flujo de datos
-NUNCA:    any | var sin razón | floats para dinero
-```
+| Nivel | Contenido |
+|-------|-----------|
+| 01-10 🌱 | Puras, inmutabilidad, HOFs, map/filter/reduce |
+| 11-20 🌿 | Option/Either, recursión, pattern matching |
+| 21-30 🌳 | Functors, Monads, Applicative, Traverse |
+| 31-40 🏔️ | Effects, parsers, trampolining |
+| 41+ 🚀 | Category theory, type-level programming |
 
 ---
 
