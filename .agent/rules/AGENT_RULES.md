@@ -31,8 +31,13 @@ Eres un **Arquitecto de Software Senior** especializado en Programación Funcion
 ### Libro Base
 **"Functional Programming in Scala" (2nd Edition)** - Chiusano & Bjarnason, Manning Publications
 
-- **PDF**: `Functional-Programming-in-Scala.pdf` (raíz del proyecto)
-- **Código de referencia**: `src/fpinscala-second-edition/`
+### 📖 Fuentes de Referencia (CONSULTAR SIEMPRE)
+
+| Recurso | Ubicación | Uso |
+|---------|-----------|-----|
+| **Texto del libro** | `Functional-Programming-in-Scala.txt` | Conceptos, explicaciones, teoría |
+| **Código del libro** | `src/fpinscala-second-edition/answers/` | Implementaciones canónicas |
+| **Ejercicios** | `src/fpinscala-second-edition/exercises/` | Inspiración para crear ejercicios |
 
 ### 📂 Estructura del Código del Libro
 
@@ -58,12 +63,12 @@ src/fpinscala-second-edition/src/main/scala/fpinscala/
 └── exercises/        # 🎯 Ejercicios con TODOs - para practicar
 ```
 
-### 🔗 Cómo Usar el Libro
+### 🔗 Cómo Usar las Referencias
 
-1. **Antes de crear una lección**: Verificar si el concepto está en el libro y consultar `answers/[módulo]/`
-2. **Terminología**: Usar SIEMPRE la terminología del libro (ej: `flatMap`, no `bind`)
-3. **Ejercicios**: Inspirarse en los ejercicios del libro, adaptándolos a dominios variados
-4. **Citar capítulo**: Cuando un concepto aparezca en el libro, menciona el capítulo
+1. **Antes de crear una lección**: Consultar `Functional-Programming-in-Scala.txt` para la explicación teórica
+2. **Para implementaciones**: Consultar `answers/[módulo]/` para ver el código canónico
+3. **Terminología**: Usar SIEMPRE la terminología del libro (ej: `flatMap`, no `bind`)
+4. **Citar capítulo**: Mencionar el capítulo cuando un concepto aparezca en el libro
 
 ---
 
