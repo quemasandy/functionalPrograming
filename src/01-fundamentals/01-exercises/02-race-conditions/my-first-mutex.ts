@@ -29,6 +29,7 @@ interface cache {
   get(key: string): Lock | undefined;
   setnx(key: string, value: Lock): boolean;
   delete(key: string): void;
+  removeExpired(): void;
 }
 
 class Redis implements cache {
@@ -46,12 +47,29 @@ class Redis implements cache {
     return this.redis.get(key);
   }
 
-  /*
-  * Espero que con esto ya podamos solucionar el error de qué pasa si dos lambdas o dos procesos llaman al mismo tiempo. 
-  * Si eso llega a pasar, siempre va a haber una verificación global por parte de redes que dice Este lock ya existe o no? 
-  * Con eso, pienso que, si dos lambdas llaman a esta función al mismo tiempo, solo una va a pasar y la otra no. 
-  */
   setnx(key: string, value: Lock) {
+    // • Lazy Expiration: Modificar setnx para que, si encuentra un lock, verifique si ya caducó antes de decir "bloqueado".
+    // • Implementación de TTL Incompleta: Guardas el ttl en el objeto, pero tu método setnx no lo revisa. 
+    // Solo verifica this.redis.has(key). Si el lock se queda ahí (zombie), setnx seguirá devolviendo false eternamente 
+    // aunque el tiempo haya pasado.
+    // Creo que es mala idea que este método sentx if not existe también revise el ttl. 
+    // Lo que pasa es que si llega a encontrar un token con el tiempo que aún expiro o sea un token válido, 
+    // ok, ¿qué tiene que retornar? Tiene que retornar falso. 
+    // Para que con esto el programa principal sepa que existe un lock valido
+    // pero si ya expiro no se cuales serian los pasos a seguir 
+    // si elimino el lock que ya expiro y devuelvo true el programa continuara una ejeccucion sin lock me va a dar un bug
+    // si elimino el lock que ya expiro y devuelvo false el programa reintenta y al reintentar no encuntra el lock y me va a dar un error
+    // si decido no hacer nada tengo que devolver false al final del dia existe un lock, expirado puede ser, pero es un lock
+    // siempre creo que es mejor idea devolver false al encontrar un lock expirado o vigente
+    // ahora lo que podria hacer es actualizar su ttl pero no gano mucho con esto seguira el lock
+
+    // en definitiva creo que es mejor que redis maneje borrar los tokens expirados en un proceso independiente
+    // Creo que está bien que devuelva eternamente false, o sea, porque no es responsabilidad de él limpiar los time to libs. 
+    // Los time to libs se van a encargar redis, que es un servicio ya externo, ¿no? 
+    // Ahora, lo que sí no me gusta es que redis sea un único punto de fallo, pero bueno. 
+    // Lazy Expiration: Modificar setnx para que, si encuentra un lock, verifique si ya caducó antes de decir "bloqueado".
+    // Supongamos que lo caducó. ¿Cuál debería ser la acción aquí en esta función? 
+    
     if (this.redis.has(key)) {
       return false;
     }
@@ -62,6 +80,15 @@ class Redis implements cache {
 
   delete(key: string) {
     this.redis.delete(key);
+  }
+
+  removeExpired() {
+    this.redis.forEach((value, key) => {
+      console.log('[removeExpired]', value);
+      if (value.ttl < Date.now()) {
+        this.redis.delete(key);
+      }
+    });
   }
 }
 
@@ -130,15 +157,11 @@ async function retirarDineroInseguro(
     };
 
   } catch (error) {
-    // • Fuga en Crash: Si tx: 4 lanza el error crítico (el que re-lanzas en el catch), el flujo se rompe, sale de la función, y nunca llegas a la lógica de limpieza del cliente. Ese lock queda zombie. 🧟
-    // Esto es para simular cuando el servidor se cae y no alcanza a dar una respuesta. El Locke no queda zombies, se va a limpiar con el templo live. 
     console.log(`tx: ${data.tx} ${error}`);
     if (data.tx === 4) throw error;
     data.status = 'error';
     return { exito: false, status: data.status, mensaje: '500 Server Error', tx: data.tx, cuentaId: data.cuentaId };
   } finally {
-    // Ahora la limpieza del cash ya es interna. 
-    // Pero, no sé por qué ahora esta función ya no es pura. Tiene este efecto secundario: que tal vez sea necesario. 
     if (data.status !== 'locked') {
       cache.delete(data.cuentaId);
     }
@@ -189,15 +212,17 @@ async function demostrarRaceCondition(): Promise<void> {
       return [fullfilled, rejected];
     }, [[] as { exito: boolean; status: Status; mensaje: string; tx: number, cuentaId: string }[], [] as Error[]]);
 
-    const success = fullfilled.filter(tx => ['success', 'error'].includes(tx.status));
+    const fullfilledNotLock = fullfilled.filter(tx => tx.status !== 'locked');
 
-    successTransactions.push(...success);
+    successTransactions.push(...fullfilledNotLock);
     errorTransactions.push(...rejected);
 
     const lockedTx = fullfilled.filter(tx => tx.status === 'locked');
     const lockedTxIds = lockedTx.map(tx => tx.tx);
     transactions = transactions.filter(tx => lockedTxIds.includes(tx.tx));
   }
+
+  cache.removeExpired();
 
   console.log('='.repeat(70));
 
