@@ -21,7 +21,7 @@ type ResultTransaction<T, E> =
   | { success: true; data: { transactionId: string, account: T } }
   | ErrorResultTransaction<E>;
 
-type DbErrorType = 'versionMismatch' | 'accountNotFound' | 'accountAlreadyExists';
+type DbErrorType = 'versionMismatch' | 'accountNotFound' | 'accountAlreadyExists' | 'serverError';
 type TransactionErrorType = 'insufficientFunds' | DbErrorType;
 
 interface IDatabase {
@@ -102,7 +102,7 @@ async function retirarDineroVersionControl(
     throw new CustomError('serverError', transaction);
   }
   // Simulamos latencia de red/base de datos
-  await sleep(100); // ⚠️ AQUÍ ESTÁ EL PELIGRO
+  await sleep(1000); // ⚠️ AQUÍ ESTÁ EL PELIGRO
 
   // PASO 2: Validamos la regla de negocio
   if (transaction.monto > cuenta.data.saldo) {
@@ -139,31 +139,41 @@ function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function demostrarRaceConditionVersion(
-  transactions: { id: string, cuentaId: string, monto: number }[],
-  db: IDatabase
-): Promise<{
-  fulfilled: ResultTransaction<CuentaBancaria, TransactionErrorType>[],
-  rejected: CustomError[]
-}
-> {
-  const promises = transactions.map(transaction =>
-    retirarDineroVersionControl(transaction, db)
-  );
-
-  const results = await Promise.allSettled(promises);
-
-  const fulfilled = results.filter(result => result.status === 'fulfilled').map(result => result.value)
-  const rejected = results.filter(result => result.status === 'rejected').map(result => result.reason)
-
-  return {
-    fulfilled,
-    rejected
-  }
-}
-
 function jitter() {
   return Math.floor(Math.random() * 1000)
+}
+
+type RetryOptions = {
+  maxRetries?: number,
+  isRetry(error: TransactionErrorType): boolean
+}
+
+const universalRetry = async (operation: any, options: RetryOptions) => {
+  const maxRetries = options?.maxRetries || 3;
+  
+  let lastError: any
+
+  for (let i = 0; i < maxRetries; i++) {
+    await sleep(jitter())
+
+    const operetion = await operation()
+  
+    if (operetion.success) {
+      return {success: true, data: operetion.data}
+    }
+
+    const retry = options?.isRetry(operetion.error)
+
+    if (!retry) return {success: false, error: operetion.error}
+    
+    lastError = operetion.error
+    await sleep((2 ** i) * 1000)
+  }
+
+  return {
+    success: false,
+    error: lastError
+  }
 }
 
 async function retirarDineroResiliente(
@@ -171,41 +181,32 @@ async function retirarDineroResiliente(
   db: IDatabase,
   options?: { maxRetries: number }
 ): Promise<{
-  fulfilled: {retry: number, response: ResultTransaction<CuentaBancaria, TransactionErrorType>[]}[],
-  rejected: {retry: number, response: CustomError[]}[]
+  success: {success: true, data: {transactionId: string, account: CuentaBancaria} }[]
+  failed: {success: false, error: TransactionErrorType, transactionId: string }[]
 }> {
 
-  const maxRetries = options?.maxRetries || 3;
+  const reponse = await Promise.all(transactions.map(
+    (transaction) => universalRetry(
+      async () => {
+        try {
+          return await retirarDineroVersionControl(transaction, db)
+        } catch (error) {
+          return {success: false, error: 'serverError', transactionId: transaction.id}
+        }
+      },
+      {
+        maxRetries: 2,
+        isRetry: (error) => error === 'versionMismatch'
+      }
+    )
+  ));
 
-  const fulfilledTransactions: {retry: number, response: ResultTransaction<CuentaBancaria, TransactionErrorType>[]}[] = [];
-  const rejectedTransactions: {retry: number, response: CustomError[]}[] = [];
-
-  for (let i = 0; i < maxRetries; i++) {
-    await sleep(jitter())
-    
-    const { fulfilled, rejected } = await demostrarRaceConditionVersion(transactions, db)
-    
-    fulfilledTransactions.push({retry: i, response: fulfilled})
-    rejectedTransactions.push({retry: i, response: rejected})
-
-    const versionMismatchResponses = fulfilled.filter(
-      result => result.success === false && result.error === 'versionMismatch'
-    ) as ErrorResultTransaction<TransactionErrorType>[];
-
-    if (versionMismatchResponses.length === 0) {
-      break;
-    }
-
-    await sleep((2 ** i) * 1000)
-
-    transactions = versionMismatchResponses.map(result => (
-      { id: result.id, cuentaId: result.cuentaId, monto: result.monto }
-    ))
-  }
+  const fulfilledTransactions = reponse.filter((tx: any) => tx.success) as {success: true, data: {transactionId: string, account: CuentaBancaria} }[]
+  const rejectedTransactions = reponse.filter((tx: any) => !tx.success) as {success: false, error: TransactionErrorType, transactionId: string }[]
 
   return {
-    fulfilled: fulfilledTransactions,
-    rejected: rejectedTransactions
+    success: fulfilledTransactions,
+    failed: rejectedTransactions
   }
 }
 
@@ -234,26 +235,19 @@ async function main() {
     { id: '005', cuentaId: 'cuenta-001', monto: 800 },
   ]
 
-  const { fulfilled, rejected } = await retirarDineroResiliente(transactions, db)
+  const { success, failed } = await retirarDineroResiliente(transactions, db)
 
   console.log('✅ Transacciones procesadas:');
-  fulfilled.forEach((result) => {
-    console.log(`Retry Attempt: ${result.retry}`)
-    result.response.forEach((response) => {
-      const txId = response.success ? response.data.transactionId : response.id;
-      console.log(`👤 tx ${txId}: ${JSON.stringify(response, null, 2)}`);
-    })
+  success.forEach((result) => {
+    // console.log(`Retry Attempt: ${result.retry}`)
+    const txId = result.success ? result.data.transactionId : result.id;
+    console.log(`👤 tx ${txId}: ${JSON.stringify(result, null, 2)}`);
   })
 
   console.log('❌ Transacciones fallidas:');
-  rejected.forEach((result) => {
-    console.log(`Retry Attempt: ${result.retry}`)
-    if (result.response.length === 0) {
-      console.log('Sin Errores');
-    }
-    result.response.forEach((response) => {
-      console.log(`👤 tx ${response.transactionId}: ${response.toString()}`);
-    })
+  failed.forEach((result) => {
+    // console.log(`Retry Attempt: ${result.retry}`)
+    console.log(`👤 tx ${result.transactionId}: ${result.error}`);
   })
 
   const cuentaFinal = await db.getById('cuenta-001');
