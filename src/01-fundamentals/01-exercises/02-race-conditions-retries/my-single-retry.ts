@@ -164,7 +164,6 @@ const universalRetry: UniversalRetry = async (operation, options) => {
   let id: string = '';
 
   for (let i = 0; i < maxRetries; i++) {
-    await sleep(jitter())
 
     const operationData = await operation()
 
@@ -175,6 +174,8 @@ const universalRetry: UniversalRetry = async (operation, options) => {
     const retry = options?.isRetry(operationData.error)
     
     if (!retry) return operationData
+
+    await sleep(jitter())
     
     lastError = operationData.error
     id = operationData.id
