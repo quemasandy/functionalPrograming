@@ -148,31 +148,43 @@ type RetryOptions = {
   isRetry(error: TransactionErrorType): boolean
 }
 
-const universalRetry = async (operation: any, options: RetryOptions) => {
+type OperationResult =
+  | { success: true, data: { transactionId: string, account: CuentaBancaria } }
+  | { success: false, error: TransactionErrorType, id: string }
+
+type UniversalRetry = (
+  operation: () => Promise<OperationResult>,
+  options: RetryOptions
+) => Promise<OperationResult>
+
+const universalRetry: UniversalRetry = async (operation, options) => {
   const maxRetries = options?.maxRetries || 3;
-  
-  let lastError: any
+
+  let lastError: TransactionErrorType = 'serverError';
+  let id: string = '';
 
   for (let i = 0; i < maxRetries; i++) {
     await sleep(jitter())
 
-    const operetion = await operation()
-  
-    if (operetion.success) {
-      return {success: true, data: operetion.data}
+    const operationData = await operation()
+
+    if (operationData.success) {
+      return operationData
     }
 
-    const retry = options?.isRetry(operetion.error)
-
-    if (!retry) return {success: false, error: operetion.error}
+    const retry = options?.isRetry(operationData.error)
     
-    lastError = operetion.error
+    if (!retry) return operationData
+    
+    lastError = operationData.error
+    id = operationData.id
     await sleep((2 ** i) * 1000)
   }
 
   return {
     success: false,
-    error: lastError
+    error: lastError,
+    id
   }
 }
 
@@ -181,17 +193,16 @@ async function retirarDineroResiliente(
   db: IDatabase,
   options?: { maxRetries: number }
 ): Promise<{
-  success: {success: true, data: {transactionId: string, account: CuentaBancaria} }[]
-  failed: {success: false, error: TransactionErrorType, transactionId: string }[]
+  success: { success: true, data: { transactionId: string, account: CuentaBancaria } }[]
+  failed: { success: false, error: TransactionErrorType, id: string }[]
 }> {
-
-  const reponse = await Promise.all(transactions.map(
-    (transaction) => universalRetry(
+  const operations = transactions.map((transaction) =>
+    universalRetry(
       async () => {
         try {
           return await retirarDineroVersionControl(transaction, db)
         } catch (error) {
-          return {success: false, error: 'serverError', transactionId: transaction.id}
+          return { success: false, error: 'serverError', id: transaction.id }
         }
       },
       {
@@ -199,10 +210,11 @@ async function retirarDineroResiliente(
         isRetry: (error) => error === 'versionMismatch'
       }
     )
-  ));
+  )
 
-  const fulfilledTransactions = reponse.filter((tx: any) => tx.success) as {success: true, data: {transactionId: string, account: CuentaBancaria} }[]
-  const rejectedTransactions = reponse.filter((tx: any) => !tx.success) as {success: false, error: TransactionErrorType, transactionId: string }[]
+  const reponse = await Promise.all(operations)
+  const fulfilledTransactions = reponse.filter((tx) => tx.success)
+  const rejectedTransactions = reponse.filter((tx) => !tx.success)
 
   return {
     success: fulfilledTransactions,
@@ -239,15 +251,14 @@ async function main() {
 
   console.log('✅ Transacciones procesadas:');
   success.forEach((result) => {
-    // console.log(`Retry Attempt: ${result.retry}`)
-    const txId = result.success ? result.data.transactionId : result.id;
+    const txId = result.data.transactionId;
     console.log(`👤 tx ${txId}: ${JSON.stringify(result, null, 2)}`);
   })
 
   console.log('❌ Transacciones fallidas:');
   failed.forEach((result) => {
-    // console.log(`Retry Attempt: ${result.retry}`)
-    console.log(`👤 tx ${result.transactionId}: ${result.error}`);
+    const txId = result.id;
+    console.log(`👤 tx ${txId}: ${result.error}`);
   })
 
   const cuentaFinal = await db.getById('cuenta-001');
