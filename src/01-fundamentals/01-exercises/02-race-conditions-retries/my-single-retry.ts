@@ -150,7 +150,7 @@ type RetryOptions = {
 
 type OperationResult =
   | { success: true, data: { transactionId: string, account: CuentaBancaria } }
-  | { success: false, error: TransactionErrorType, id: string }
+  | { success: false, error: TransactionErrorType | string, id: string }
 
 type UniversalRetry = (
   operation: () => Promise<OperationResult>,
@@ -203,7 +203,9 @@ async function retirarDineroResiliente(
         try {
           return await retirarDineroVersionControl(transaction, db)
         } catch (error) {
-          return { success: false, error: 'serverError', id: transaction.id }
+          console.error(error)
+          const errorType = error instanceof CustomError ? error.message : 'serverError'
+          return { success: false, error: errorType, id: transaction.id }
         }
       },
       {
