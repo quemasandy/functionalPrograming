@@ -1,4 +1,4 @@
-type CuentaBancaria = {
+type BankAccount = {
   id: string;
   titular: string;
   saldo: number;
@@ -15,29 +15,30 @@ type ResultDb<T, E> =
   | { success: true; data: T }
   | { success: false; error: E }
 
-type ErrorResultTransaction<E> = { success: false; error: E } & ITransaction;
+type TransactionSuccess = { transactionId: string, account: BankAccount } ;
+type TransactionFail = { success: false; error: TransactionError } & ITransaction;
 
-type ResultTransaction<T, E> =
-  | { success: true; data: { transactionId: string, account: T } }
-  | ErrorResultTransaction<E>;
+type ResultTransaction =
+  | { success: true; data: TransactionSuccess }
+  | TransactionFail;
 
 type DbErrorType = 'versionMismatch' | 'accountNotFound' | 'accountAlreadyExists' | 'serverError';
-type TransactionErrorType = 'insufficientFunds' | DbErrorType;
+type TransactionError = DbErrorType | 'insufficientFunds';
 
 interface IDatabase {
-  create(id: string, data: CuentaBancaria): Promise<ResultDb<CuentaBancaria, DbErrorType>>;
-  getById(id: string): Promise<ResultDb<CuentaBancaria, DbErrorType>>;
-  updateIfVersionMatches(id: string, data: CuentaBancaria): Promise<ResultDb<CuentaBancaria, DbErrorType>>;
+  create(id: string, data: BankAccount): Promise<ResultDb<BankAccount, DbErrorType>>;
+  getById(id: string): Promise<ResultDb<BankAccount, DbErrorType>>;
+  updateIfVersionMatches(id: string, data: BankAccount): Promise<ResultDb<BankAccount, DbErrorType>>;
 }
 
 class MemoryDb implements IDatabase {
-  private db: Map<string, CuentaBancaria> = new Map();
+  private db: Map<string, BankAccount> = new Map();
 
   constructor() {
     this.db = new Map();
   }
 
-  async create(id: string, data: CuentaBancaria): Promise<ResultDb<CuentaBancaria, DbErrorType>> {
+  async create(id: string, data: BankAccount): Promise<ResultDb<BankAccount, DbErrorType>> {
     if (this.db.has(id)) {
       return { success: false, error: 'accountAlreadyExists' };
     }
@@ -45,7 +46,7 @@ class MemoryDb implements IDatabase {
     return { success: true, data };
   }
 
-  async getById(id: string): Promise<ResultDb<CuentaBancaria, DbErrorType>> {
+  async getById(id: string): Promise<ResultDb<BankAccount, DbErrorType>> {
     const cuenta = this.db.get(id);
     if (!cuenta) {
       return { success: false, error: 'accountNotFound' };
@@ -53,7 +54,7 @@ class MemoryDb implements IDatabase {
     return { success: true, data: cuenta };
   }
 
-  async updateIfVersionMatches(id: string, data: CuentaBancaria): Promise<ResultDb<CuentaBancaria, DbErrorType>> {
+  async updateIfVersionMatches(id: string, data: BankAccount): Promise<ResultDb<BankAccount, DbErrorType>> {
     const cuenta = this.db.get(id);
     if (!cuenta) {
       return { success: false, error: 'accountNotFound' };
@@ -85,10 +86,10 @@ class CustomError extends Error {
   }
 }
 
-async function retirarDineroVersionControl(
+async function withDrawVersionControl(
   transaction: ITransaction,
   db: IDatabase
-): Promise<ResultTransaction<CuentaBancaria, TransactionErrorType>> {
+): Promise<ResultTransaction> {
   console.log(`Iniciando transacción ${transaction.id}`);
   // PASO 1: Leemos el estado actual (LECTURA)
   const cuenta = await db.getById(transaction.cuentaId);
@@ -143,85 +144,140 @@ function jitter() {
   return Math.floor(Math.random() * 1000)
 }
 
-type RetryOptions = {
-  maxRetries?: number,
-  isRetry(error: TransactionErrorType): boolean
+function calculateBackOffDelay(attempt: number, baseDelayMs: number, maxDelayMs: number): number {
+  const exponentialBackoff = Math.pow(2, attempt) * baseDelayMs;
+  const delay = exponentialBackoff + jitter();
+  return Math.min(delay, maxDelayMs);
 }
 
-type OperationResult =
-  | { success: true, data: { transactionId: string, account: CuentaBancaria } }
-  | { success: false, error: TransactionErrorType | string, id: string }
+type RetryOptions<E> = {
+  maxRetries: number,
+  baseDelayMs: number,
+  maxDelayMs: number,
+  isRetry(error: E): boolean,
+  onRetry?: (id: string, attempt: number, error: E, nextDelayMs: number) => void;
+}
 
-type UniversalRetry = (
-  operation: () => Promise<OperationResult>,
-  options: RetryOptions
-) => Promise<OperationResult>
+type RetryResult<T, E> =
+  | { success: true; data: T; attempts: number }
+  | { success: false; error: E | string; id: string; attempts: number; wasRetriable: boolean };
 
-const universalRetry: UniversalRetry = async (operation, options) => {
-  const maxRetries = options?.maxRetries || 3;
+// const universalRetry = async <T, E>(
+//   operation: () => Promise<{ success: true; data: T } | { success: false; error: E; id: string }>,
+//   options: RetryOptions<E>
+// ): Promise<RetryResult<T, E>> => {
+// ¿Cuál es la diferencia entre usar arrow functions y funciones nombradas?
 
-  let lastError: TransactionErrorType = 'serverError';
+async function universalRetry<T, E>(
+  operation: () => Promise<{ success: true; data: T } | { success: false; error: E; id: string }>, 
+  options: RetryOptions<E>
+): Promise<RetryResult<T, E>> {
+  const {
+    maxRetries,
+    baseDelayMs,
+    maxDelayMs,
+    isRetry,
+    onRetry
+  } = options;
+
+  let lastError: E | string = '';
   let id: string = '';
 
-  for (let i = 0; i < maxRetries; i++) {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
 
     const operationData = await operation()
 
     if (operationData.success) {
-      return operationData
+      return {
+        success: true,
+        data: operationData.data,
+        attempts: attempt + 1
+      }
     }
 
-    const retry = options?.isRetry(operationData.error)
-    
-    if (!retry) return operationData
-
-    await sleep(jitter())
-    
-    lastError = operationData.error
     id = operationData.id
-    await sleep((2 ** i) * 1000)
+    const retry = isRetry(operationData.error)
+
+    if (!retry) return {
+      success: false,
+      error: operationData.error,
+      id,
+      attempts: attempt + 1,
+      wasRetriable: false
+    }
+
+    lastError = operationData.error
+    
+    const delayMs = calculateBackOffDelay(attempt, baseDelayMs, maxDelayMs)
+
+    if (onRetry) {
+      onRetry(id, attempt + 1, lastError, delayMs)
+    }
+
+    await sleep(delayMs)
   }
 
   return {
     success: false,
     error: lastError,
-    id
+    id,
+    attempts: maxRetries,
+    wasRetriable: true
   }
 }
 
-async function retirarDineroResiliente(
-  transactions: { id: string, cuentaId: string, monto: number }[],
-  db: IDatabase,
-  options?: { maxRetries: number }
-): Promise<{
-  success: { success: true, data: { transactionId: string, account: CuentaBancaria } }[]
-  failed: { success: false, error: TransactionErrorType, id: string }[]
-}> {
-  const operations = transactions.map((transaction) =>
-    universalRetry(
-      async () => {
-        try {
-          return await retirarDineroVersionControl(transaction, db)
-        } catch (error) {
-          console.error(error)
-          const errorType = error instanceof CustomError ? error.message : 'serverError'
-          return { success: false, error: errorType, id: transaction.id }
-        }
-      },
-      {
-        maxRetries: 2,
-        isRetry: (error) => error === 'versionMismatch'
+async function withDrawWithRetries(
+  transaccion: ITransaction,
+  db: IDatabase
+): Promise<RetryResult<TransactionSuccess, TransactionError>> {
+  return universalRetry(
+    async () => {
+      try {
+        return await withDrawVersionControl(transaccion, db)
+      } catch (error) {
+        console.error(`⚠️ Excepción capturada en tx ${transaccion.id}:`, error);
+        const errorMessage = error instanceof Error ? error.message : 'unknownError'
+        const transactionError = errorMessage as TransactionError
+        return { success: false, error: transactionError, id: transaccion.id }
       }
-    )
+    },
+    {
+      maxRetries: 3,
+      baseDelayMs: 1000,
+      maxDelayMs: 10_000,
+      isRetry: (error) => ['versionMismatch', 'serverError'].includes(error),
+      onRetry: (id, attempt, error, delay) => {
+        console.warn(`🔄 Retry #${attempt} for tx ${id}: ${error} (waiting ${delay}ms)`);
+      }
+    }
+  )
+}
+
+type RetiroResult = {
+  success: { success: true, data: TransactionSuccess, attempts: number }[]
+  failed:  { success: false, error: TransactionError | string, id: string, attempts: number, wasRetriable: boolean }[]
+}
+
+async function withDrawBatch(
+  transactions: ITransaction[],
+  db: IDatabase,
+): Promise<RetiroResult> {
+  const operations = transactions.map(
+    (transaction) => withDrawWithRetries(transaction, db)
   )
 
   const reponse = await Promise.all(operations)
-  const fulfilledTransactions = reponse.filter((tx) => tx.success)
-  const rejectedTransactions = reponse.filter((tx) => !tx.success)
+  const { success, failed } = reponse.reduce(
+    (acc, tx) => {
+      tx.success ? acc.success.push(tx) : acc.failed.push(tx)
+      return acc
+    },
+    { success: [], failed: [] } as RetiroResult
+  )
 
   return {
-    success: fulfilledTransactions,
-    failed: rejectedTransactions
+    success,
+    failed
   }
 }
 
@@ -250,18 +306,20 @@ async function main() {
     { id: '005', cuentaId: 'cuenta-001', monto: 800 },
   ]
 
-  const { success, failed } = await retirarDineroResiliente(transactions, db)
+  const { success, failed } = await withDrawBatch(transactions, db)
 
   console.log('✅ Transacciones procesadas:');
   success.forEach((result) => {
-    const txId = result.data.transactionId;
-    console.log(`👤 tx ${txId}: ${JSON.stringify(result, null, 2)}`);
+    console.log(`👤 ${result.data.account.titular} | ${result.data.account.id} | Tx ${result.data.transactionId} | ${result.success ? 'success' : 'failure'}`);
+    console.log(`    Saldo: $${result.data.account.saldo}`);
+    console.log(`    Attempts: ${result.attempts}`);
   })
 
   console.log('❌ Transacciones fallidas:');
   failed.forEach((result) => {
-    const txId = result.id;
-    console.log(`👤 tx ${txId}: ${result.error}`);
+    console.log(`👤 tx ${result.id}: ${result.error}`);
+    console.log(`    ¿Era retriable? ${result.wasRetriable}`);
+    console.log(`    Intentos: ${result.attempts}`);
   })
 
   const cuentaFinal = await db.getById('cuenta-001');

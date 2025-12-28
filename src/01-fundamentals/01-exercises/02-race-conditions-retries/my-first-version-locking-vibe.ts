@@ -287,31 +287,6 @@ const isOneOf = <E>(...retriableErrors: E[]) =>
   (error: E): boolean => retriableErrors.includes(error);
 
 // ============================================================================
-
-async function demostrarRaceConditionVersion(
-  transactions: { id: string, cuentaId: string, monto: number }[],
-  db: IDatabase
-): Promise<{
-  fulfilled: ResultTransaction<CuentaBancaria, TransactionErrorType>[],
-  rejected: CustomError[]
-}
-> {
-  const promises = transactions.map(transaction =>
-    retirarDineroVersionControl(transaction, db)
-  );
-
-  const results = await Promise.allSettled(promises);
-
-  const fulfilled = results.filter(result => result.status === 'fulfilled').map(result => result.value)
-  const rejected = results.filter(result => result.status === 'rejected').map(result => result.reason)
-
-  return {
-    fulfilled,
-    rejected
-  }
-}
-
-// ============================================================================
 // 🎯 USO DEL HELPER: Operación individual con retry
 // ============================================================================
 
