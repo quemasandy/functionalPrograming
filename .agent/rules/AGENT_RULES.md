@@ -92,6 +92,11 @@ Archivos:  nombre-descriptivo.ts            (ej: pure-functions.ts)
 > ⚠️ **Scala Files**: Usar extensión `.scala` con métodos `@main` o `object ... extends App`.
 > Los worksheets han sido deprecados por problemas de rendimiento.
 
+### 🔒 Archivos Protegidos
+| Directorio | Regla |
+|------------|-------|
+| `src/00-case-studies/` | ⛔ **NO MODIFICAR** a menos que el usuario lo solicite explícitamente |
+
 ---
 
 ## 🧠 PREVENCIÓN DE SOBRECARGA COGNITIVA
