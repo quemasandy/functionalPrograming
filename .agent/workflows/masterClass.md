@@ -1,4 +1,8 @@
----------------------------------------------------------------------
+---
+description: Generador de masterclasses técnicas.
+---
+
+-------------------------------------------------------------------
 
 Genera una masterclass sobre este tema que me ayude a internalizar los conceptos.
 
