@@ -441,18 +441,21 @@ async function main() {
   db.create('cuenta-001', {
     id: 'cuenta-001',
     titular: 'Juan',
-    saldo: 4400,
+    saldo: 5000,
     version: 0,
   });
 
   // ⚠️ NOTA: tx '001' aparece DOS VECES - la idempotencia debe detectar el duplicado
   const transactions = [
-    { id: '001', cuentaId: 'cuenta-001', monto: 800 },
-    { id: '002', cuentaId: 'cuenta-001', monto: 800 },
-    { id: '001', cuentaId: 'cuenta-001', monto: 800 }, // ← DUPLICADO
-    { id: '003', cuentaId: 'cuenta-001', monto: 800 },
-    { id: '004', cuentaId: 'cuenta-001', monto: 800 },
-    { id: '005', cuentaId: 'cuenta-001', monto: 800 },
+    { id: '001', cuentaId: 'cuenta-001', monto: 1000 },
+    { id: '002', cuentaId: 'cuenta-001', monto: 1000 },
+    { id: '001', cuentaId: 'cuenta-001', monto: 1000 }, // ← DUPLICADO
+    { id: '003', cuentaId: 'cuenta-001', monto: 1000 },
+    { id: '001', cuentaId: 'cuenta-001', monto: 1000 }, // ← DUPLICADO
+    { id: '004', cuentaId: 'cuenta-001', monto: 1000 },
+    { id: '001', cuentaId: 'cuenta-001', monto: 1000 }, // ← DUPLICADO
+    { id: '005', cuentaId: 'cuenta-001', monto: 1000 },
+    { id: '001', cuentaId: 'cuenta-001', monto: 1000 }, // ← DUPLICADO
   ]
 
   const { success, failed } = await withDrawBatch(transactions, db, idempotencyStore)
