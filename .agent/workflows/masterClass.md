@@ -18,7 +18,7 @@ Requisitos del tutorial:
    - Ejemplos en sistemas de pagos/transacciones cuando aplique
 
 4. **Código ejecutable**: 
-   - Incluir función demo() al final que muestre el patrón en acción
+   - Incluir función main() al final que muestre el patrón en acción
 
 5. **Cheatsheet**: 
    - Agregar un resumen/cheatsheet al final del archivo
