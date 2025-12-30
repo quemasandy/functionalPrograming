@@ -1,105 +1,207 @@
+// ============================================================================
+// � TIPOS DE DOMINIO
+// ============================================================================
+
 type CuentaBancaria = {
-  id: string;
-  titular: string;
-  saldo: number;
-  version: number; // Para optimistic locking (lo veremos después)
+  readonly id: string;
+  readonly titular: string;
+  readonly saldo: number;
+  readonly version: number;
 };
 
-// Base de datos simulada (en memoria)
-const baseDeDatos: Map<string, CuentaBancaria> = new Map();
+type ResultadoRetiro =
+  | { readonly exito: true; readonly nuevoSaldo: number; readonly mensaje: string }
+  | { readonly exito: false; readonly mensaje: string };
 
-// Función auxiliar para simular latencia
-function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+type LockResult =
+  | { readonly success: true; readonly lockToken: string }
+  | { readonly success: false; readonly reason: string };
+
+// ============================================================================
+// 🗄️ MEMORY DATABASE - Simula PostgreSQL/MySQL
+// ============================================================================
+
+interface Database<T> {
+  get(id: string): Promise<T | undefined>;
+  set(id: string, value: T): Promise<void>;
+  delete(id: string): Promise<boolean>;
 }
 
-// Inicializamos una cuenta
-baseDeDatos.set('cuenta-001', {
-  id: 'cuenta-001',
-  titular: 'María García',
-  saldo: 1000,
-  version: 1,
-});
+class MemoryDatabase<T> implements Database<T> {
+  private readonly store: Map<string, T> = new Map();
 
-/*
- * DESVENTAJAS:
- * - Reduce el paralelismo (otros procesos ESPERAN)
- * - Riesgo de DEADLOCKS (dos procesos esperándose mutuamente)
- * - No escala bien con alto tráfico
- */
-
-// Simulamos locks en memoria
-const locks: Map<string, boolean> = new Map();
-
-async function adquirirLock(recursoId: string): Promise<void> {
-  // Esperamos hasta que el recurso esté disponible
-  while (locks.get(recursoId)) {
-    console.log('adquirirLock loop waiting', recursoId);
-    await sleep(10); // Polling (en producción usarías semáforos)
+  async get(id: string): Promise<T | undefined> {
+    return this.store.get(id);
   }
-  console.log('adquirirLock lock acquired', recursoId);
-  locks.set(recursoId, true);
-}
 
-function liberarLock(recursoId: string): void {
-  console.log('liberarLock lock released', recursoId);
-  locks.set(recursoId, false);
-}
+  async set(id: string, value: T): Promise<void> {
+    this.store.set(id, value);
+  }
 
-/**
- * ✅ RETIRO CON PESSIMISTIC LOCKING
- */
-async function retirarConPessimisticLock(
-  cuentaId: string,
-  monto: number
-): Promise<{ exito: boolean; mensaje: string }> {
-  // PASO 1: Adquirimos el LOCK antes de hacer nada
-  console.log('[cuentaId]', cuentaId);
-  await adquirirLock(cuentaId);
-
-  try {
-    // PASO 2: Ahora podemos leer con seguridad
-    console.log('[cuentaId] 2', cuentaId);
-    const cuenta = baseDeDatos.get(cuentaId);
-    console.log('[cuenta]', cuenta);
-
-    if (!cuenta) {
-      return { exito: false, mensaje: 'Cuenta no encontrada' };
-    }
-
-    await sleep(100); // Simulamos latencia
-
-    // PASO 3: Validamos
-    if (monto > cuenta.saldo) {
-      return { exito: false, mensaje: 'Saldo insuficiente' };
-    }
-
-    // PASO 4: Actualizamos
-    const nuevoSaldo = cuenta.saldo - monto;
-    await sleep(50);
-
-    baseDeDatos.set(cuentaId, {
-      ...cuenta,
-      saldo: nuevoSaldo,
-    });
-
-    console.log('[cuentaId] Final', cuentaId);
-    return {
-      exito: true,
-      mensaje: `Retiro exitoso. Nuevo saldo: $${nuevoSaldo}`,
-    };
-  } finally {
-    // PASO 5: SIEMPRE liberamos el lock, incluso si hay error
-    liberarLock(cuentaId);
+  async delete(id: string): Promise<boolean> {
+    return this.store.delete(id);
   }
 }
 
-async function demostrarPessimisticLocking(): Promise<void> {
-  console.log('='.repeat(70));
-  console.log('✅ SOLUCIÓN 1: PESSIMISTIC LOCKING');
-  console.log('='.repeat(70));
+// ============================================================================
+// 🔴 MEMORY CACHE - Simula Redis con SETNX
+// ============================================================================
 
-  baseDeDatos.set('cuenta-001', {
+interface Cache {
+  /**
+   * SETNX (SET if Not eXists) - Operación ATÓMICA
+   * @returns true si se seteo (key no existía), false si ya existía
+   */
+  setIfNotExists(key: string, value: string, ttlMs: number): Promise<boolean>;
+  get(key: string): Promise<string | undefined>;
+  delete(key: string): Promise<boolean>;
+}
+
+class MemoryCache implements Cache {
+  private readonly store: Map<string, { value: string; expiresAt: number }> = new Map();
+
+  async setIfNotExists(key: string, value: string, ttlMs: number): Promise<boolean> {
+    const now = Date.now();
+    const existing = this.store.get(key);
+
+    // Si existe y no ha expirado → SETNX falla (retorna false)
+    if (existing && existing.expiresAt > now) {
+      return false;
+    }
+
+    // SETNX exitoso
+    this.store.set(key, { value, expiresAt: now + ttlMs });
+    return true;
+  }
+
+  async get(key: string): Promise<string | undefined> {
+    const now = Date.now();
+    const existing = this.store.get(key);
+
+    if (!existing) return undefined;
+    if (existing.expiresAt <= now) {
+      this.store.delete(key);
+      return undefined;
+    }
+    return existing.value;
+  }
+
+  async delete(key: string): Promise<boolean> {
+    return this.store.delete(key);
+  }
+}
+
+// ============================================================================
+// � LOCKING FUNCTIONS - Enfoque funcional
+// ============================================================================
+
+const acquireLock = async (
+  cache: Cache,
+  resourceId: string,
+  ttlMs: number
+): Promise<LockResult> => {
+  const lockToken = crypto.randomUUID();
+  const lockKey = `lock:${resourceId}`;
+
+  const acquired = await cache.setIfNotExists(lockKey, lockToken, ttlMs);
+
+  return acquired
+    ? { success: true, lockToken }
+    : { success: false, reason: `Resource ${resourceId} is locked` };
+};
+
+const releaseLock = async (
+  cache: Cache,
+  resourceId: string,
+  expectedToken: string
+): Promise<boolean> => {
+  const lockKey = `lock:${resourceId}`;
+  const currentToken = await cache.get(lockKey);
+
+  // Solo liberar si el token coincide (evita liberar locks ajenos)
+  if (currentToken === expectedToken) {
+    return cache.delete(lockKey);
+  }
+  return false;
+};
+
+// ============================================================================
+// 🏦 BANKING FUNCTIONS - Enfoque funcional
+// ============================================================================
+
+const sleep = (ms: number): Promise<void> =>
+  new Promise(resolve => setTimeout(resolve, ms));
+
+// ✅ Locking también inyectado para consistencia y testabilidad
+type LockingStrategy = {
+  readonly acquire: (cache: Cache, resourceId: string, ttlMs: number) => Promise<LockResult>;
+  readonly release: (cache: Cache, resourceId: string, expectedToken: string) => Promise<boolean>;
+};
+
+type Dependencies = {
+  readonly db: Database<CuentaBancaria>;
+  readonly cache: Cache;
+  readonly locking: LockingStrategy;
+};
+
+// ✅ Partial Application: Separamos dependencias (configuración) de datos (operación)
+// Paso 1: Inyectar dependencias → retorna función de negocio
+const crearServicioRetiro = (deps: Dependencies) => {
+  // Paso 2: Esta función solo necesita datos de negocio (closure captura deps)
+  return async (cuentaId: string, monto: number): Promise<ResultadoRetiro> => {
+    const LOCK_TTL = 5000;
+
+    // PASO 1: Adquirir lock (deps viene del closure)
+    const lockResult = await deps.locking.acquire(deps.cache, cuentaId, LOCK_TTL);
+    if (!lockResult.success) {
+      return { exito: false, mensaje: `No se pudo adquirir lock: ${lockResult.reason}` };
+    }
+
+    try {
+      // PASO 2: Leer cuenta
+      const cuenta = await deps.db.get(cuentaId);
+      if (!cuenta) return { exito: false, mensaje: 'Cuenta no encontrada' };
+
+      await sleep(100); // Simula latencia
+
+      // PASO 3: Validar
+      if (monto > cuenta.saldo) return { exito: false, mensaje: 'Saldo insuficiente' };
+
+      // PASO 4: Actualizar
+      const nuevoSaldo = cuenta.saldo - monto;
+      await deps.db.set(cuentaId, { ...cuenta, saldo: nuevoSaldo });
+
+      return { exito: true, nuevoSaldo, mensaje: `Retiro exitoso. Nuevo saldo: $${nuevoSaldo}` };
+    } finally {
+      // PASO 5: Liberar lock
+      await deps.locking.release(deps.cache, cuentaId, lockResult.lockToken);
+    }
+  };
+};
+
+// ============================================================================
+// 🧪 DEMO
+// ============================================================================
+
+async function demo(): Promise<void> {
+  console.log('='.repeat(60));
+  console.log('✅ PESSIMISTIC LOCKING - Enfoque Funcional');
+  console.log('='.repeat(60));
+
+  // 1️⃣ Configuración de dependencias (una sola vez al iniciar)
+  const deps: Dependencies = {
+    db: new MemoryDatabase<CuentaBancaria>(),
+    cache: new MemoryCache(),
+    locking: {
+      acquire: acquireLock,
+      release: releaseLock,
+    },
+  };
+
+  // 2️⃣ Crear servicio de negocio (partial application)
+  const retirar = crearServicioRetiro(deps);
+
+  await deps.db.set('cuenta-001', {
     id: 'cuenta-001',
     titular: 'Luigy Muñoz',
     saldo: 1000,
@@ -107,21 +209,19 @@ async function demostrarPessimisticLocking(): Promise<void> {
   });
 
   console.log('📊 Estado inicial: $1000');
-  console.log('🎯 Intentando 2 retiros de $800 con LOCK...');
+  console.log('🎯 Intentando 2 retiros de $800 con LOCK...\n');
 
-  const [resultado1, resultado2] = await Promise.all([
-    retirarConPessimisticLock('cuenta-001', 800),
-    retirarConPessimisticLock('cuenta-001', 800),
+  // 3️⃣ Uso limpio: solo datos de negocio, sin deps
+  const [r1, r2] = await Promise.all([
+    retirar('cuenta-001', 800),  // ✅ Sin deps!
+    retirar('cuenta-001', 800),  // ✅ Sin deps!
   ]);
 
-  console.log(`👤 Retiro 1: ${resultado1.mensaje}`);
-  console.log(`👤 Retiro 2: ${resultado2.mensaje}`);
-
-  const cuentaFinal = baseDeDatos.get('cuenta-001')!;
-  console.log(`💰 Saldo final: $${cuentaFinal.saldo}`);
-  console.log(`✅ ¡CORRECTO! Solo un retiro pasó, el otro fue rechazado.`);
+  console.log(`👤 Retiro 1: ${r1.mensaje}`);
+  console.log(`👤 Retiro 2: ${r2.mensaje}`);
+  console.log(`💰 Saldo final: $${(await deps.db.get('cuenta-001'))?.saldo}`);
 }
 
-demostrarPessimisticLocking();
+demo();
 
-export {}
+export { };
