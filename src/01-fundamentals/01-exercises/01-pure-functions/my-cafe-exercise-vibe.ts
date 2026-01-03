@@ -30,27 +30,71 @@ interface Charge {
  * const c2: Charge = { cc: aliceCard, amount: 450 };
  * combine(c1, c2) // → { cc: aliceCard, amount: 800 }
  */
-type Success<T> = { success: true, value: T };
-type Error = { success: false, error: string };
-type Result<T> = Success<T> | Error;
+
+type CafeError =
+  | { readonly _tag: "NoChargesProvided" }
+  | { readonly _tag: "CardMismatch"; readonly cards: readonly CreditCard[] }
+  | { readonly _tag: "CoffeePurchaseFailed"; readonly reason: string }
+  | { readonly _tag: "MultiplePurchasesFailed"; readonly errors: readonly CafeError[] };
+
+// Constructores - Facilitan crear errores con type inference
+const CafeError = {
+  noCharges: (): CafeError => ({ _tag: "NoChargesProvided" }),
+  cardMismatch: (cards: readonly CreditCard[]): CafeError => ({ _tag: "CardMismatch", cards }),
+  purchaseFailed: (reason: string): CafeError => ({ _tag: "CoffeePurchaseFailed", reason }),
+  multipleFailed: (errors: readonly CafeError[]): CafeError => ({ _tag: "MultiplePurchasesFailed", errors }),
+} as const;
+
+/**
+ * Result tipado con errores estructurados
+ */
+type Success<T> = { readonly _tag: "Success"; readonly value: T };
+type Failure<E> = { readonly _tag: "Failure"; readonly error: E };
+type Result<T, E = CafeError> = Success<T> | Failure<E>;
+
+// Constructores para Result
+const Result = {
+  success: <T>(value: T): Result<T, never> => ({ _tag: "Success", value }),
+  failure: <E>(error: E): Result<never, E> => ({ _tag: "Failure", error }),
+} as const;
+
+/**
+ * 🔍 Helper para pattern matching exhaustivo de errores
+ * El compilador te avisa si olvidas manejar un caso
+ */
+function formatCafeError(error: CafeError): string {
+  switch (error._tag) {
+    case "NoChargesProvided":
+      return "No se proporcionaron cargos";
+    case "CardMismatch":
+      return `Tarjetas diferentes: ${error.cards.map(c => c.holder).join(", ")}`;
+    case "CoffeePurchaseFailed":
+      return `Compra fallida: ${error.reason}`;
+    case "MultiplePurchasesFailed":
+      return `Múltiples fallos:\n${error.errors.map(e => `  - ${formatCafeError(e)}`).join("\n")}`;
+    // Si agregas un nuevo _tag y no lo manejas, TypeScript te avisará aquí
+  }
+}
 
 function combine(...charges: Charge[]): Result<Charge> {
   if (charges.length === 0) {
-    return { success: false, error: "No charges provided" };
+    return Result.failure(CafeError.noCharges());
   }
 
   const creditCard = charges[0].cc;
 
-  const validation = charges.every(charge => charge.cc.number === creditCard.number);
-  if (!validation) {
-    return { success: false, error: "All charges must be for the same credit card" };
+  // Encuentra tarjetas que no coinciden
+  const mismatchedCards = charges
+    .filter(charge => charge.cc.number !== creditCard.number)
+    .map(charge => charge.cc);
+
+  if (mismatchedCards.length > 0) {
+    // ✅ Error tipado: incluye las tarjetas que no coinciden
+    return Result.failure(CafeError.cardMismatch([creditCard, ...mismatchedCards]));
   }
 
-  const totalAmount = charges.reduce((acc, charge) => {
-    return acc + charge.amount;
-  }, 0);
-
-  return { success: true, value: { cc: creditCard, amount: totalAmount } };
+  const totalAmount = charges.reduce((acc, charge) => acc + charge.amount, 0);
+  return Result.success({ cc: creditCard, amount: totalAmount });
 }
 
 /**
@@ -64,18 +108,9 @@ function combine(...charges: Charge[]): Result<Charge> {
  * @returns Un objeto con { coffee, charge }
  */
 function buyCoffee(cc: CreditCard): Result<{ coffee: Coffee; charge: Charge }> {
-  // TODO: Implementa esta función
-  // Crea un café medium de $3.50 (350 centavos)
-  const coffee: Coffee = {
-    size: "medium",
-    price: 350
-  };
-  const charge: Charge = {
-    cc,
-    amount: coffee.price
-  };
-  // Retorna el café Y el cargo correspondiente
-  return { success: true, value: { coffee, charge } };
+  const coffee: Coffee = { size: "medium", price: 350 };
+  const charge: Charge = { cc, amount: coffee.price };
+  return Result.success({ coffee, charge });
 }
 
 /**
@@ -99,47 +134,34 @@ function buyCoffee(cc: CreditCard): Result<{ coffee: Coffee; charge: Charge }> {
 type BuyCoffeesAccumulator = {
   readonly coffees: Coffee[];
   readonly totalAmount: number;
-  readonly errors: string[];
+  readonly errors: CafeError[];  // ✅ Errores tipados, no strings
 };
 
 function buyCoffees(cc: CreditCard, n: number): Result<{ coffees: readonly Coffee[]; charge: Charge }> {
-  // ✅ OPTIMIZADO: Una sola pasada con reduce
-  // Complejidad: O(n) en lugar de O(6n)
+  // ✅ OPTIMIZADO: Una sola pasada con reduce + errores tipados
   const { coffees, totalAmount, errors } = Array.from({ length: n }).reduce<BuyCoffeesAccumulator>(
     (acc, _) => {
       const result = buyCoffee(cc);
 
-      if (!result.success) {
-        // Acumulamos errores sin detener el proceso
-        return {
-          ...acc,
-          errors: [...acc.errors, result.error]
-        };
+      if (result._tag === "Failure") {
+        return { ...acc, errors: [...acc.errors, result.error] };
       }
 
-      // Acumulamos café Y sumamos el monto en la misma pasada
       return {
         coffees: [...acc.coffees, result.value.coffee],
         totalAmount: acc.totalAmount + result.value.charge.amount,
         errors: acc.errors
       };
     },
-    { coffees: [], totalAmount: 0, errors: [] } // Estado inicial
+    { coffees: [], totalAmount: 0, errors: [] }
   );
 
-  // Validación de errores (ya acumulados, sin pasada extra)
-  if (errors.length !== 0) {
-    return { success: false, error: JSON.stringify(errors) };
+  if (errors.length > 0) {
+    // ✅ Retorna errores estructurados que el consumidor puede inspeccionar
+    return Result.failure(CafeError.multipleFailed(errors));
   }
 
-  // Construimos el cargo directamente (sin llamar a combine)
-  return {
-    success: true,
-    value: {
-      coffees,
-      charge: { cc, amount: totalAmount }
-    }
-  };
+  return Result.success({ coffees, charge: { cc, amount: totalAmount } });
 }
 
 /**
@@ -167,24 +189,38 @@ function buyCoffees(cc: CreditCard, n: number): Result<{ coffees: readonly Coffe
  * 🔵 Este ejercicio es más avanzado, puedes saltarlo y volver después.
  */
 function coalesce(charges: readonly Charge[]): Result<readonly Charge[]> {
-  const chargesByCardNumber: { [key: string]: Charge[] } = charges.reduce((acc, charge) => {
-    if (!acc[charge.cc.number]) {
-      acc[charge.cc.number] = [];
-    }
-    acc[charge.cc.number] = [...acc[charge.cc.number], charge];
-    return acc;
-  }, {} as { [key: string]: Charge[] });
+  // Agrupar por número de tarjeta
+  const chargesByCardNumber = charges.reduce<Record<string, Charge[]>>(
+    (acc, charge) => ({
+      ...acc,
+      [charge.cc.number]: [...(acc[charge.cc.number] || []), charge]
+    }),
+    {}
+  );
 
-  const combinedCharges = Object.values(chargesByCardNumber).map((charges) => combine(...charges));
+  // Combinar cada grupo
+  const results = Object.values(chargesByCardNumber).map(group => combine(...group));
 
-  const failedCharges = combinedCharges.filter((charge) => !charge.success);
-  if (failedCharges.length !== 0) {
-    return { success: false, error: JSON.stringify(failedCharges) };
+  // Separar éxitos y fallos con una sola pasada
+  const { successes, failures } = results.reduce<{
+    successes: Charge[];
+    failures: CafeError[];
+  }>(
+    (acc, result) => {
+      if (result._tag === "Success") {
+        return { ...acc, successes: [...acc.successes, result.value] };
+      }
+      return { ...acc, failures: [...acc.failures, result.error] };
+    },
+    { successes: [], failures: [] }
+  );
+
+  if (failures.length > 0) {
+    // ✅ Errores tipados con todos los fallos estructurados
+    return Result.failure(CafeError.multipleFailed(failures));
   }
 
-  const successCharges = combinedCharges.filter((charge) => charge.success).map((charge) => charge.value);
-
-  return { success: true, value: successCharges };
+  return Result.success(successes);
 }
 
 // ============================================================================
@@ -192,39 +228,87 @@ function coalesce(charges: readonly Charge[]): Result<readonly Charge[]> {
 // ============================================================================
 
 
-console.log("\n=== PATRÓN: Funciones Puras ===\n");
+console.log("\n=== PATRÓN: Errores Tipados (Discriminated Unions) ===\n");
 
 const aliceCard: CreditCard = { number: "41111111111654321", holder: "Alice" };
 
-// Test 1: combine
+// Test 1: combine - éxito
 const charge1: Charge = { cc: aliceCard, amount: 350 };
 const charge2: Charge = { cc: aliceCard, amount: 450 };
-const { value: combined } = combine(charge1, charge2) as { success: true, value: Charge };
-console.log(`Test combine: ${combined.amount === 800 ? "✅" : "❌"} (esperado: 800, obtenido: ${combined.amount})`);
+const combineResult = combine(charge1, charge2);
+if (combineResult._tag === "Success") {
+  console.log(`Test combine: ✅ (esperado: 800, obtenido: ${combineResult.value.amount})`);
+} else {
+  console.log(`Test combine: ❌ Error: ${formatCafeError(combineResult.error)}`);
+}
 
-// // Test 2: buyCoffee
-const { value: result } = buyCoffee(aliceCard) as Success<{ coffee: Coffee; charge: Charge }>;
-console.log(`Test buyCoffee:`);
-console.log(`  - Retorna café: ${result.coffee ? "✅" : "❌"}`);
-console.log(`  - Retorna cargo: ${result.charge.amount === 350 ? "✅" : "❌"}`);
+// Test 2: buyCoffee
+const coffeeResult = buyCoffee(aliceCard);
+if (coffeeResult._tag === "Success") {
+  console.log(`Test buyCoffee:`);
+  console.log(`  - Retorna café: ✅`);
+  console.log(`  - Retorna cargo: ${coffeeResult.value.charge.amount === 350 ? "✅" : "❌"}`);
+} else {
+  console.log(`Test buyCoffee: ❌ Error: ${formatCafeError(coffeeResult.error)}`);
+}
 
-// // Test 3: buyCoffees
-const { value: multiResult } = buyCoffees(aliceCard, 3) as Success<{ coffees: readonly Coffee[]; charge: Charge }>;
-console.log(`Test buyCoffees(3):`);
-console.log(`  * 3 cafés: ${multiResult.coffees.length === 3 ? "✅" : "❌"} obtenidos: ${multiResult.coffees.length}`);
-console.log(`  * 1 cargo combinado: ${multiResult.charge.amount === 1050 ? "✅" : "❌"} obtenido: ${multiResult.charge.amount}`);
+// Test 3: buyCoffees
+const multiResult = buyCoffees(aliceCard, 3);
+if (multiResult._tag === "Success") {
+  console.log(`Test buyCoffees(3):`);
+  console.log(`  * 3 cafés: ${multiResult.value.coffees.length === 3 ? "✅" : "❌"}`);
+  console.log(`  * 1 cargo combinado: ${multiResult.value.charge.amount === 1050 ? "✅" : "❌"}`);
+} else {
+  console.log(`Test buyCoffees: ❌ Error: ${formatCafeError(multiResult.error)}`);
+}
 
-// // Test 4: coalesce
+// Test 4: coalesce
 const bobCard: CreditCard = { number: "5555555555554444", holder: "Bob" };
 const mixedCharges: Charge[] = [
   { cc: aliceCard, amount: 350 },
   { cc: bobCard, amount: 450 },
   { cc: aliceCard, amount: 200 }
 ];
-const { value: coalesced } = coalesce(mixedCharges) as Success<Charge[]>;
-console.log(`Test coalesce:`);
-console.log(`  - Resultado tiene 2 cargos: ${coalesced.length === 2 ? "✅" : "❌"}`);
-coalesced.forEach((charge) => console.log(`    - ${JSON.stringify(charge)}`));
+const coalesceResult = coalesce(mixedCharges);
+if (coalesceResult._tag === "Success") {
+  console.log(`Test coalesce:`);
+  console.log(`  - Resultado tiene 2 cargos: ${coalesceResult.value.length === 2 ? "✅" : "❌"}`);
+  coalesceResult.value.forEach((charge) => console.log(`    - ${charge.cc.holder}: $${charge.amount / 100}`));
+} else {
+  console.log(`Test coalesce: ❌ Error: ${formatCafeError(coalesceResult.error)}`);
+}
+
+// ============================================================================
+// 🆕 TEST: Demostración de errores tipados
+// ============================================================================
+console.log("\n=== 🆕 Demo: Errores Tipados vs Stringly Typed ===\n");
+
+// Simulamos un error de tarjetas diferentes
+const charlieCard: CreditCard = { number: "378282246310005", holder: "Charlie" };
+const errorResult = combine(
+  { cc: aliceCard, amount: 100 },
+  { cc: bobCard, amount: 200 },
+  { cc: charlieCard, amount: 300 }
+);
+
+if (errorResult._tag === "Failure") {
+  const error = errorResult.error;
+
+  // ✅ Pattern matching exhaustivo - el compilador verifica que manejamos todos los casos
+  if (error._tag === "CardMismatch") {
+    console.log("🎯 Error tipado permite:");
+    console.log(`   - Saber exactamente qué tipo de error es: ${error._tag}`);
+    console.log(`   - Acceder a datos estructurados:`);
+    error.cards.forEach(card => {
+      console.log(`     • Tarjeta: ${card.holder} (${card.number.slice(-4)})`);
+    });
+    console.log(`\n   🔴 Antes (stringly typed): "All charges must be for the same credit card"`);
+    console.log(`   🟢 Ahora (typed error): Objeto con todas las tarjetas involucradas`);
+  }
+
+  // También podemos usar formatCafeError para un mensaje legible
+  console.log(`\n📝 Mensaje formateado: ${formatCafeError(error)}`);
+}
 
 console.log("\n🎉 ¡Ejercicio completado!");
 
