@@ -52,7 +52,7 @@ type Success<T> = { readonly _tag: "Success"; readonly value: T };
 type Failure<E> = { readonly _tag: "Failure"; readonly error: E };
 type Result<T, E = CafeError> = Success<T> | Failure<E>;
 
-// Constructores para Result
+// Constructores para Result con Genricos de typescript <T> <E>
 const Result = {
   success: <T>(value: T): Result<T, never> => ({ _tag: "Success", value }),
   failure: <E>(error: E): Result<never, E> => ({ _tag: "Failure", error }),
