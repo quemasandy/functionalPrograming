@@ -56,6 +56,36 @@ type Result<T, E = CafeError> = Success<T> | Failure<E>;
 const Result = {
   success: <T>(value: T): Result<T, never> => ({ _tag: "Success", value }),
   failure: <E>(error: E): Result<never, E> => ({ _tag: "Failure", error }),
+
+  /**
+   * 🔗 map: Transforma el valor dentro de Success, propagando Failure intacto
+   * 
+   * @example
+   * Result.map(buyCoffee(cc), imprimirRecibo)  // Solo ejecuta si Success
+   */
+  map: <T, E, U>(result: Result<T, E>, f: (value: T) => U): Result<U, E> =>
+    result._tag === "Success"
+      ? Result.success(f(result.value))
+      : result,
+  /**
+   * 🔗 flatMap: Encadena operaciones que retornan Result (evita Result<Result<...>>)
+   * 
+   * @example
+   * Result.flatMap(buyCoffee(cc), cafe => validarInventario(cafe))
+   */
+  flatMap: <T, E, U, E2>(result: Result<T, E>, f: (value: T) => Result<U, E2>): Result<U, E | E2> =>
+    result._tag === "Success"
+      ? f(result.value)
+      : result,
+  serializeSuccess: <T, U>(result: Result<T, never>, f: (value: T) => U): U | '' =>
+    result._tag === "Success" ? f(result.value) : '',
+  serializeFailure: <T, E, U>(result: Result<T, E>, f: (error: E) => U): U | '' =>
+    result._tag === "Failure" ? f(result.error) : '',
+  serializeEither: <T, E, U>(
+    result: Result<T, E>,
+    fnSuccess: (value: T) => U,
+    fnError: (error: E) => U): U =>
+    result._tag === "Success" ? fnSuccess(result.value) : fnError(result.error),
 } as const;
 
 /**
@@ -311,5 +341,106 @@ if (errorResult._tag === "Failure") {
 }
 
 console.log("\n🎉 ¡Ejercicio completado!");
+
+// ============================================================================
+// 🆕 DEMO: map y flatMap - Eliminando el Boilerplate
+// ============================================================================
+console.log("\n=== 🆕 Demo: map y flatMap (Encadenamiento Fluido) ===\n");
+
+// ❌ ANTES: Boilerplate manual con ifs
+console.log("❌ ANTES (con boilerplate):");
+const resultadoManual = buyCoffee(aliceCard);
+if (resultadoManual._tag === "Success") {
+  const mensaje = `Café ${resultadoManual.value.coffee.size} - $${resultadoManual.value.charge.amount / 100}`;
+  console.log(`   ${mensaje}`);
+}
+
+// ✅ AHORA: Usando map (sin ifs manuales)
+console.log("\n✅ AHORA con map (sin ifs):");
+const mensajeConMap = Result.map(
+  buyCoffee(aliceCard),
+  (compra) => `Café ${compra.coffee.size} - $${compra.charge.amount / 100}`
+);
+if (mensajeConMap._tag === "Success") {
+  console.log(`   ${mensajeConMap.value}`);
+}
+
+const mensajeConMapSuccess = Result.serializeSuccess(
+  buyCoffee(aliceCard),
+  (compra) => `Café ${compra.coffee.size} - $${compra.charge.amount / 100}`
+);
+
+const mensajeConSeriealizeFailure = Result.serializeFailure(
+  buyCoffee(aliceCard),
+  (error) => `Error: ${formatCafeError(error)}`
+);
+
+const mensajeConSeriealizeEither = Result.serializeEither(
+  buyCoffee(aliceCard),
+  (compra) => `Café ${compra.coffee.size} - $${compra.charge.amount / 100}}`,
+  (error) => `Error: ${formatCafeError(error)}`
+);
+
+console.log(`   $(mapSuccess): ${mensajeConMapSuccess}`);
+console.log(`   $(SeriealizeFailure): ${mensajeConSeriealizeFailure}`);
+console.log(`   $(mensajeConSeriealizeEither): ${mensajeConSeriealizeEither}`);
+
+// 🔗 Encadenando múltiples maps
+console.log("\n🔗 Encadenando maps:");
+const pipeline = Result.map(
+  Result.map(
+    buyCoffee(aliceCard),
+    (compra) => ({ ...compra, descuento: 50 })  // Agregar descuento
+  ),
+  (compraConDescuento) => ({
+    ...compraConDescuento,
+    total: compraConDescuento.charge.amount - compraConDescuento.descuento
+  })
+);
+console.log('[pipeline]', pipeline);
+if (pipeline._tag === "Success") {
+  console.log(`   Original: $${pipeline.value.charge.amount / 100}`);
+  console.log(`   Descuento: -$${pipeline.value.descuento / 100}`);
+  console.log(`   Total: $${pipeline.value.total / 100}`);
+}
+
+// 🚀 flatMap: Cuando la operación también puede fallar
+console.log("\n🚀 flatMap (operaciones que retornan Result):");
+
+// Simulamos una validación que puede fallar
+const validarTamaño = (compra: { coffee: Coffee; charge: Charge }): Result<Coffee> =>
+  compra.coffee.size === "large"
+    // compra.coffee.size === "medium"
+    ? Result.failure(CafeError.purchaseFailed(`No hay café ${compra.coffee.size} disponible`))
+    : Result.success(compra.coffee);
+
+// Con flatMap, encadenamos sin Result<Result<...>>
+const cafeValidado = Result.flatMap(buyCoffee(aliceCard), validarTamaño);
+if (cafeValidado._tag === "Success") {
+  console.log(`   ✅ Café validado: ${cafeValidado.value.size}`);
+} else {
+  console.log(`   ❌ Validación falló: ${formatCafeError(cafeValidado.error)}`);
+}
+console.log('='.repeat(50));
+console.log(Result.serializeSuccess(cafeValidado, (coffee) => `✅ Café validado: ${coffee.size}`));
+console.log(Result.serializeFailure(cafeValidado, (error) => `❌ Validación falló: ${formatCafeError(error)}`));
+
+const finalResponse = Result.serializeEither(
+  cafeValidado,
+  (coffee) => `✅ Café validado: ${coffee.size}`,
+  (error) => `❌ Validación falló: ${formatCafeError(error)}`
+)
+
+console.log(`finalResponse: ${finalResponse}`);
+console.log('='.repeat(50));
+
+// 📊 Comparación lado a lado
+console.log("\n📊 Resumen:");
+console.log("┌─────────────────────────────────────────────────────────────┐");
+console.log("│  Método   │ Función recibe │ Función retorna │ Resultado   │");
+console.log("├───────────┼────────────────┼─────────────────┼─────────────┤");
+console.log("│  map      │ T              │ U               │ Result<U>   │");
+console.log("│  flatMap  │ T              │ Result<U>       │ Result<U>   │");
+console.log("└─────────────────────────────────────────────────────────────┘");
 
 export { }
