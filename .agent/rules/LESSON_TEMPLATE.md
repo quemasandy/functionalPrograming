@@ -28,6 +28,57 @@ Al terminar esta lección podrás:
 
 ---
 
+### 📖 Vocabulario Técnico
+> **Propósito**: Adquirir el lenguaje necesario ANTES de abordar el concepto.
+
+| Término | Definición | Origen/Etimología | Ejemplo |
+|---------|------------|-------------------|---------|
+| **[Palabra clave 1]** | [Definición clara y concisa] | [De dónde viene el término] | [Uso en código o contexto] |
+| **[Palabra clave 2]** | [Definición clara y concisa] | [De dónde viene el término] | [Uso en código o contexto] |
+
+> 💡 **Tip de memoria**: [Mnemotécnico o conexión memorable para recordar los términos]
+
+---
+
+### 🔍 Patrón o Ley Universal
+> **Propósito**: Identificar el principio fundamental que trasciende este problema específico.
+
+**Nombre del Patrón/Ley**: [Ej: Principio de Inversión de Dependencias, Ley de Demeter, etc.]
+
+**Enunciado**: 
+> "[Cita o formulación del principio en una oración]"
+
+**Por qué existe este patrón**:
+[1-2 párrafos explicando el problema recurrente que este patrón resuelve a lo largo de la historia del software]
+
+**Dónde más aplica** (transferencia):
+- [Dominio 1]: [Cómo se manifiesta]
+- [Dominio 2]: [Cómo se manifiesta]  
+- [Dominio 3]: [Cómo se manifiesta]
+
+---
+
+### 🧠 Marco de Pensamiento
+> **Propósito**: Desarrollar el framework mental para abordar problemas similares.
+
+**Pregunta clave que este concepto responde**:
+> "¿[Pregunta fundamental que el desarrollador debe hacerse]?"
+
+**Checklist de razonamiento** (antes de implementar):
+1. [ ] ¿[Primera pregunta de validación]?
+2. [ ] ¿[Segunda pregunta de validación]?
+3. [ ] ¿[Tercera pregunta de validación]?
+
+**Señales de que necesitas este patrón** (🚨 code smells):
+- [Señal 1 en el código]
+- [Señal 2 en el código]
+- [Señal 3 en el código]
+
+**Anti-señales** (cuándo NO usar):
+- [Situación donde el patrón sería over-engineering]
+
+---
+
 ### ¿Qué problema resuelve?
 [1-2 párrafos: el pain point en desarrollo de software]
 
