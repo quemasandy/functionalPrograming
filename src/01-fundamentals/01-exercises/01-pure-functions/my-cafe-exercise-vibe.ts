@@ -77,11 +77,11 @@ const Result = {
     result._tag === "Success"
       ? f(result.value)
       : result,
-  serializeSuccess: <T, U>(result: Result<T, never>, f: (value: T) => U): U | '' =>
+  foldSuccess: <T, E, U>(result: Result<T, E>, f: (value: T) => U): U | '' =>
     result._tag === "Success" ? f(result.value) : '',
-  serializeFailure: <T, E, U>(result: Result<T, E>, f: (error: E) => U): U | '' =>
+  foldFailure: <T, E, U>(result: Result<T, E>, f: (error: E) => U): U | '' =>
     result._tag === "Failure" ? f(result.error) : '',
-  serializeEither: <T, E, U>(
+  foldEither: <T, E, U>(
     result: Result<T, E>,
     fnSuccess: (value: T) => U,
     fnError: (error: E) => U): U =>
@@ -365,17 +365,17 @@ if (mensajeConMap._tag === "Success") {
   console.log(`   ${mensajeConMap.value}`);
 }
 
-const mensajeConMapSuccess = Result.serializeSuccess(
+const mensajeConMapSuccess = Result.foldSuccess(
   buyCoffee(aliceCard),
   (compra) => `Café ${compra.coffee.size} - $${compra.charge.amount / 100}`
 );
 
-const mensajeConSeriealizeFailure = Result.serializeFailure(
+const mensajeConSeriealizeFailure = Result.foldFailure(
   buyCoffee(aliceCard),
   (error) => `Error: ${formatCafeError(error)}`
 );
 
-const mensajeConSeriealizeEither = Result.serializeEither(
+const mensajeConSeriealizeEither = Result.foldEither(
   buyCoffee(aliceCard),
   (compra) => `Café ${compra.coffee.size} - $${compra.charge.amount / 100}}`,
   (error) => `Error: ${formatCafeError(error)}`
@@ -422,10 +422,10 @@ if (cafeValidado._tag === "Success") {
   console.log(`   ❌ Validación falló: ${formatCafeError(cafeValidado.error)}`);
 }
 console.log('='.repeat(50));
-console.log(Result.serializeSuccess(cafeValidado, (coffee) => `✅ Café validado: ${coffee.size}`));
-console.log(Result.serializeFailure(cafeValidado, (error) => `❌ Validación falló: ${formatCafeError(error)}`));
+console.log(Result.foldSuccess(cafeValidado, (coffee) => `✅ Café validado: ${coffee.size}`));
+console.log(Result.foldFailure(cafeValidado, (error) => `❌ Validación falló: ${formatCafeError(error)}`));
 
-const finalResponse = Result.serializeEither(
+const finalResponse = Result.foldEither(
   cafeValidado,
   (coffee) => `✅ Café validado: ${coffee.size}`,
   (error) => `❌ Validación falló: ${formatCafeError(error)}`
