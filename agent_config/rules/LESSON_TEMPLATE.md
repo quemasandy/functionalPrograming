@@ -128,12 +128,18 @@ readonly                          // Por defecto en propiedades
 const                             // Por defecto en variables
 function pura(x: Type): Return    // Tipos explícitos siempre
 type Result<T> = Success<T> | Failure  // Union types para errores
+Either<E, T> / Option<T>          // Para errores esperados (Cap. 4)
 
-// ⛔ NUNCA
+// ⛔ NUNCA (para errores esperados)
+throw new Error()                 // ❌ Rompe RT - usar Either/Option
 any                               // Prohibido totalmente
 let                               // Solo si hay justificación explícita
 as Type                           // Type assertions sin validación
 // @ts-ignore                     // Jamás
+
+// ⚠️ PERMITIDO SOLO EN CASOS EXCEPCIONALES
+throw                             // Solo para bugs/invariants violados
+                                  // Documentar POR QUÉ es excepcional
 ```
 
 ### Scala 3
@@ -145,12 +151,17 @@ enum                              // Para sum types
 given/using                       // Nueva sintaxis Scala 3
 extension methods                 // Para enriquecer tipos
 pattern matching exhaustivo       // El compilador debe verificar
+Either[E, T] / Option[T]          // Para errores esperados (Cap. 4)
 
-// ⛔ NUNCA
+// ⛔ NUNCA (para errores esperados)
+throw new Exception()             // ❌ Rompe RT - usar Either/Option
 var                               // Solo si hay justificación explícita
 null                              // Usar Option
 return                            // Implícito siempre
-throw                             // Usar Either/Try
+
+// ⚠️ PERMITIDO SOLO EN CASOS EXCEPCIONALES
+throw                             // Solo para bugs del programador
+                                  // Ej: IllegalStateException por invariant violado
 ```
 
 ---
